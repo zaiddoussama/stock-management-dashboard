@@ -1,17 +1,17 @@
-import "./userList.css";
+import "./ravitailleurList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function UserList() {
+export default function RavitailleurList() {
   const [data, setData] = useState(userRows);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
-
+  
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -45,7 +45,7 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id}>
+            <Link to={"/ravitailleur/" + params.row.id}>
               <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutline
