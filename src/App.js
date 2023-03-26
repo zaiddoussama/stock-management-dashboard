@@ -12,6 +12,9 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import RavitailleurList from "./pages/ravitailleurList/RavitailleurList";
 import ProductTypeList from "./pages/productTypeList/productTypeList";
 import NewProductType from "./pages/newProductType/newProductType";
+import Machine from "./pages/machine/Machine";
+import MachineDetails from "./pages/MachineDetails/MachineDetails";
+import AddMachine from "./pages/AddMachine/AddMachine";
 
 function App() {
   return (
@@ -31,6 +34,16 @@ function App() {
           </Route>
           <Route path="/newUser">
             <NewUser />
+          </Route>
+
+          <Route path="/machines/add" exact>
+            <AddMachine/>
+          </Route>
+          <Route path="/machines/:idMachine" exact>
+            <MachineDetails/>
+          </Route>
+          <Route path="/machines">
+            <Machine/>
           </Route>
           <Route path="/products">
             <ProductList />
