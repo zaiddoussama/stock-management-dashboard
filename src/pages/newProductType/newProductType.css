@@ -1,11 +1,11 @@
 .newProductType {
   flex: 4;
   margin-top: 60px;
-  margin-left: 500px;
+  margin-left: 200px;
 }
 
 .addProductTypeItem {
-  width: 250px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
