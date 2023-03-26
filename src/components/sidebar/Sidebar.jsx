@@ -53,6 +53,12 @@ export default function Sidebar() {
                 Ravitailleurs
               </li>
             </Link>
+            <Link to="/machines" className="link">
+              <li className="sidebarListItem">
+                <Storefront className="sidebarIcon" />
+                Machines
+              </li>
+            </Link>
             <Link to="/products" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
