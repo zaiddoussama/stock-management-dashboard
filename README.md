@@ -1,4 +1,4 @@
-Project Name
+stock-management-dashboard
 This is a web-based admin dashboard built using React. The dashboard allows users to manage their stock and add products, users, and other items.
 
 Getting Started
