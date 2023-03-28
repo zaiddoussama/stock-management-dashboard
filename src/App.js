@@ -15,6 +15,7 @@ import NewProductType from "./pages/newProductType/newProductType";
 import Machine from "./pages/machine/Machine";
 import MachineDetails from "./pages/MachineDetails/MachineDetails";
 import AddMachine from "./pages/AddMachine/AddMachine";
+import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
 
 import history from "./utils/history";
 
@@ -76,6 +77,9 @@ function App() {
           </Route>
           <Route path="/newproductType">
             <NewProductType />
+          </Route>
+          <Route path="/editProducType">
+            <ProductTypeDetails />
           </Route>
         </Switch>
       </div>
