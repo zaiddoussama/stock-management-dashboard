@@ -1,0 +1,4 @@
+{
+  "domain": "https://dummyjson.com/auth/login",
+  "audience": "https://dummyjson.com/auth/login"
+}

@@ -16,9 +16,23 @@ import Machine from "./pages/machine/Machine";
 import MachineDetails from "./pages/MachineDetails/MachineDetails";
 import AddMachine from "./pages/AddMachine/AddMachine";
 
+import history from "./utils/history";
+
+import { useAuth0 } from "@auth0/auth0-react";
+
 function App() {
+  const { isLoading, error } = useAuth0();
+
+  console.log(useAuth0())
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading .... </div>;
+  }
   return (
-    <Router>
+    <Router history={history}>
       <Topbar />
       <div className="container">
         <Sidebar />
