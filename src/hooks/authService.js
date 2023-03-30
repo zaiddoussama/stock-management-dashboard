@@ -11,7 +11,7 @@ export const getAccessToken = () => {
 };
 
 export const setAccessToken = (accessToken) => {
-  return localStorage.setItem("accessToken", accessToken);
+    accessToken && localStorage.setItem("accessToken", accessToken);
 };
 
 export const getRefreshToken = () => {
@@ -19,7 +19,7 @@ export const getRefreshToken = () => {
 };
 
 export const setRefreshToken = (refreshToken) => {
-  return localStorage.setItem("refreshToken", refreshToken);
+    refreshToken && localStorage.setItem("refreshToken", refreshToken);
 };
 
 export const logOut = () => {
@@ -27,7 +27,8 @@ export const logOut = () => {
   localStorage.getItem("user");
 };
 
-export function logIn(payload, config) {
+export function logIn(payload, config, setLoading, setError) {
+  setLoading(true);
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -44,18 +45,27 @@ export function logIn(payload, config) {
     redirect: "follow",
   };
 
-  fetch(
-    "http://localhost:8080/realms/master/protocol/openid-connect/token",
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      setAccessToken(data?.access_token);
-      setRefreshToken(data?.refresh_token);
-    })
-    .catch((error) => {
-      console.error("Error authenticating user:", error);
-    });
+  try{
+    fetch(
+        "http://localhost:8080/realms/master/protocol/openid-connect/token",
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setAccessToken(data?.access_token);
+          setRefreshToken(data?.refresh_token);
+          setLoading(false);
+          window.location.href = "/";
+        })
+        .catch((error) => {
+          console.error("Error authenticating user:", error);
+          setError(error)
+        });
+  }catch(error){
+    console.error("an error occured : ", error);
+    setError(error)
+  }
+ 
 }
 
 export const acquireSilentToken = (config) => {
@@ -93,6 +103,6 @@ export const acquireSilentToken = (config) => {
       console.error("Error acquiring new token:", error);
       localStorage.removeItem("accessToken");
       localStorage.getItem("user");
-      window.location.href = '/logout';
+      window.location.href = "/logout";
     });
 };

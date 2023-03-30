@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { logIn } from "../../hooks/authService";
 
-function Login({config}) {
-    const payload = {
-        username: 'test',
-        password: 'test'
-    }
+function Login({ config }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const payload = {
+    username: "test",
+    password: "test",
+  };
   return (
     <>
       <div>Login section</div>
-      <button onClick={() => logIn(payload, config)}>login</button>
+      {loading && <div>Loading ...</div>}
+      {error && <div>an error occured !</div>}
+      <button onClick={() => logIn(payload, config, setLoading, setError)}>login</button>
     </>
   );
 }
