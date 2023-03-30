@@ -1,4 +1,5 @@
 {
-  "domain": "https://dummyjson.com/auth/login",
-  "audience": "https://dummyjson.com/auth/login"
+  "client_id": "pushapp",
+  "client_secret": "QmzKuiZO6i0IEeo4n4XDiREkzZ4XwEcj",
+  "grant_type": "password"
 }
