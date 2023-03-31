@@ -18,6 +18,7 @@ import AddMachine from "./pages/AddMachine/AddMachine";
 import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
 
 import history from "./utils/history";
+import Login from "./pages/Login/Login";
 
 function App() {
 
@@ -29,6 +30,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login/>
           </Route>
           <Route path="/users">
             <UserList />

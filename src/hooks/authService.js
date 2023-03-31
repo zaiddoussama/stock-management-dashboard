@@ -23,8 +23,8 @@ export const setRefreshToken = (refreshToken) => {
 };
 
 export const logOut = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.getItem("user");
+  localStorage.clear();
+  window.location.href = "/login";
 };
 
 export function logIn(payload, config, setLoading, setError) {
