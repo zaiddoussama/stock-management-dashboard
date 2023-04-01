@@ -17,15 +17,27 @@ import MachineDetails from "./pages/MachineDetails/MachineDetails";
 import AddMachine from "./pages/AddMachine/AddMachine";
 import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
 
+import history from "./app/history";
+import Login from "./pages/Login/Login";
+import TestContainer from "./containers/TestContainer";
+
 function App() {
+
+  const output = TestContainer();
+  console.log(output)
+  
   return (
-    <Router>
+    <Router history={history}>
+      
       <Topbar />
       <div className="container">
         <Sidebar />
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login/>
           </Route>
           <Route path="/users">
             <UserList />
