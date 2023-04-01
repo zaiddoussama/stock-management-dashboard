@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { logOut } from "../../hooks/authService";
+import { logOut } from "../../services/auth/authService";
 import "./profile.css";
 
 const items = [
   {
     label: "Profile",
     location: "/profile",
-    onClick: () => console.log('todo ...')
+    onClick: () => console.log(this)
   },
   {
     label: "Logout",

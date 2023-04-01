@@ -1,4 +1,4 @@
-import Login from "../pages/Login/Login"
+import Login from "../../pages/Login/Login"
 import { isLogged } from "./authService"
 
 function AuthProvider({children , config}) {

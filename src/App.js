@@ -17,13 +17,17 @@ import MachineDetails from "./pages/MachineDetails/MachineDetails";
 import AddMachine from "./pages/AddMachine/AddMachine";
 import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
 
-import history from "./utils/history";
+import history from "./app/history";
 import Login from "./pages/Login/Login";
+import TestContainer from "./containers/TestContainer";
 
 function App() {
 
+  // const output = TestContainer();
+  // console.log(output)
   return (
     <Router history={history}>
+      
       <Topbar />
       <div className="container">
         <Sidebar />
