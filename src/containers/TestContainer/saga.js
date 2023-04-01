@@ -10,14 +10,14 @@ import { LOAD_TODO } from './constants';
  
    try {
      const TODO = yield call(instance, requestURL);
-     yield put(TODOLoaded(TODO));
+     yield put(TODOLoaded(TODO?.data));
    } catch (err) {
      yield put(TODOLoadingError(err));
    }
  }
  
 
- export default function* githubData() {
+ export default function* todoData() {
    yield takeLatest(LOAD_TODO, getTODO);
  }
  

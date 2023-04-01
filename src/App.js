@@ -23,8 +23,9 @@ import TestContainer from "./containers/TestContainer";
 
 function App() {
 
-  // const output = TestContainer();
-  // console.log(output)
+  const output = TestContainer();
+  console.log(output)
+  
   return (
     <Router history={history}>
       
