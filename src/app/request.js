@@ -1,19 +1,28 @@
 import axios from "axios";
+import { acquireSilentToken, getAccessToken } from "../services/auth/authService";
 
 const instance = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com' || process.env.RREACT_APP_BASE_URL,
+  baseURL: process.env.RREACT_APP_BASE_URL || "http://localhost:1337/api",
   timeout: parseInt(process.env.REACT_APP_TIMEOUT || 5000),
 });
 
 instance.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
+  (config) => {
+    console.log(config.headers)
+    if(isTokenExpired(getAccessToken())){
+      acquireSilentToken({});
+    }
+    config.headers["Authorization"] = `Bearer ${getAccessToken()}`;
     return config;
   },
-  function (error) {
-    // Do something with request error
+  (error) => {
     return Promise.reject(error);
   }
 );
+
+const isTokenExpired = (token) => {
+  const decode = JSON.parse(atob(token.split('.')[1]));
+  return decode.exp * 1000 < new Date().getTime();
+}
 
 export default instance;
