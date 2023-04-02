@@ -1,0 +1,43 @@
+.programWeeklyList{
+    flex: 4;
+  }
+  
+  .programWeeklyListItem{
+    display: flex;
+    align-items: center;
+  }
+  
+  .programWeeklyListEdit{
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #3bb077;
+    color: white;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  
+  .programWeeklyListDelete{
+    color: red;
+    cursor: pointer;
+  }
+  
+  .programWeeklyTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+  
+  .programWeeklyAddButton {
+    width: 150px;
+    height: 50px;
+    border: none;
+    padding: 5px;
+    background-color: teal;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    margin: 10px;
+  }

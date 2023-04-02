@@ -53,6 +53,12 @@ export default function Sidebar() {
                 Ravitailleurs
               </li>
             </Link>
+            <Link to="/programWeeklyList" className="link">
+              <li className="sidebarListItem">
+                <WorkOutline className="sidebarIcon" />
+                Program weekly
+              </li>
+            </Link>
             <Link to="/machines" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
