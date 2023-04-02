@@ -1,0 +1,39 @@
+.profileGlobalContainer{
+    margin-top: 160px;
+    position: relative;
+    width: 180px;
+    height: 200px;
+}
+
+.profileContainer{
+    border: 1px #000000 solid;
+    border-radius: 5px;
+    top: 0;
+    left: 0;
+    background-color: rgb(240, 240, 255);
+}
+
+.profileItem{
+    text-align: center;
+    color: #555;
+    padding-top: 10px;
+    height: 40px;
+    border-bottom: .5px #555 solid;
+    cursor: pointer;
+}
+
+.profileItem:hover{
+    background-color: rgb(250, 250, 255);
+}
+
+.topAvatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    right: 0;
+}
+
+.hideProfile{
+    display: none;
+}
