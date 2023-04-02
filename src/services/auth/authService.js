@@ -1,3 +1,5 @@
+const baseUrl = process.env.REACT_APP_BASE_URL + "/auth/v1";
+
 export const isLogged = () => {
   return localStorage.getItem("accessToken") !== null;
 };
@@ -11,7 +13,7 @@ export const getAccessToken = () => {
 };
 
 export const setAccessToken = (accessToken) => {
-    accessToken && localStorage.setItem("accessToken", accessToken);
+  accessToken && localStorage.setItem("accessToken", accessToken);
 };
 
 export const getRefreshToken = () => {
@@ -19,7 +21,7 @@ export const getRefreshToken = () => {
 };
 
 export const setRefreshToken = (refreshToken) => {
-    refreshToken && localStorage.setItem("refreshToken", refreshToken);
+  refreshToken && localStorage.setItem("refreshToken", refreshToken);
 };
 
 export const logOut = () => {
@@ -30,74 +32,58 @@ export const logOut = () => {
 export function logIn(payload, config, setLoading, setError) {
   setLoading(true);
   var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  myHeaders.append("Content-Type", "application/json");
 
-  var urlencoded = new URLSearchParams();
-  let jsonData = { ...config, ...payload };
-  for (const property in jsonData) {
-    urlencoded.append(property, jsonData[property]);
-  }
+  let raw = JSON.stringify({ ...config, ...payload });
 
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: urlencoded,
+    body: raw,
     redirect: "follow",
   };
 
-  try{
-    fetch(
-        "http://localhost:8080/realms/master/protocol/openid-connect/token",
-        requestOptions
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setAccessToken(data?.access_token);
-          setRefreshToken(data?.refresh_token);
-          setLoading(false);
-          window.location.href = "/";
-        })
-        .catch((error) => {
-          console.error("Error authenticating user:", error);
-          setError(error)
-        });
-  }catch(error){
+  try {
+    fetch(baseUrl + "/token", requestOptions)
+      .then((response) => response.text())
+      .then((data) => {
+        setAccessToken(JSON.parse(data)?.accessToken);
+        setRefreshToken(JSON.parse(data)?.refreshToken);
+        setLoading(false);
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("Error authenticating user:", error);
+        setError(error);
+      });
+  } catch (error) {
     console.error("an error occured : ", error);
-    setError(error)
+    setError(error);
   }
- 
 }
 
 export const acquireSilentToken = (config) => {
   var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  myHeaders.append("Content-Type", "application/json");
 
-  var urlencoded = new URLSearchParams();
-
-  var jsonData = {
+  var raw = JSON.stringify({
     ...config,
-    grant_type: "refresh_token",
-    refresh_token: getRefreshToken(),
-  };
-  for (const property in jsonData) {
-    urlencoded.append(property, jsonData[property]);
-  }
+    grant_type: "refreshToken",
+    refreshToken: getRefreshToken(),
+  });
 
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: urlencoded,
+    body: raw,
     redirect: "follow",
   };
 
-  fetch(
-    "http://localhost:8080/realms/master/protocol/openid-connect/token",
-    requestOptions
-  )
-    .then((response) => response.json())
+  fetch(baseUrl + "/refreshToken", requestOptions)
+    .then((response) => response.text())
     .then((data) => {
-      setAccessToken(data?.access_token);
-      setRefreshToken(data?.refresh_token);
+      setAccessToken(JSON.parse(data)?.accessToken);
+      setRefreshToken(JSON.parse(data)?.refreshToken);
     })
     .catch((error) => {
       console.error("Error acquiring new token:", error);
