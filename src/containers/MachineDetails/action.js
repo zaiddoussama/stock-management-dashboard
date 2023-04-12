@@ -1,25 +1,27 @@
 import {
-  GET_MACHINES,
-  GET_MACHINES_SUCCESS,
-  GET_MACHINES_ERROR,
+  UPDATE_MACHINE,
+  UPDATE_MACHINE_SUCCESS,
+  UPDATE_MACHINE_ERROR,
 } from "./constants";
 
-export function getMachines() {
+export function updateMachine(payload) {
   return {
-    type: GET_MACHINES,
+    type: UPDATE_MACHINE,
+    payload
   };
 }
 
-export function getMachinesSuccess(machinesList) {
+export function updateMachineSuccess(payload) {
   return {
-    type: GET_MACHINES_SUCCESS,
-    machinesList,
+    type: UPDATE_MACHINE_SUCCESS,
+    payload,
   };
 }
 
-export function getMachinesError(error) {
+export function updateMachineError(error) {
   return {
-    type: GET_MACHINES_ERROR,
+    type: UPDATE_MACHINE_ERROR,
     error,
   };
 }
+

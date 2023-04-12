@@ -7,26 +7,33 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
+import { CircularProgress } from "@mui/material";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 import { machineList } from "../../dummyData";
 import { useInjectReducer } from "./../../app/injectReducer";
 import { useInjectSaga } from "./../../app/injectSaga";
 import { getMachinesStore } from "../../app/applicationStates";
 import { getMachines } from "./action";
-import reducer from "./reducer";
+import reducer, { initialState } from "./reducer";
 import saga from "./saga";
 
 const key = getMachinesStore;
 
-export default function Machine() {
+export default function MachineList() {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const machineAddOutput = useSelector((state) => state?.[key]);
-  console.log(machineAddOutput);
+  const machineListData = useSelector((state) => state?.[key]) || initialState;
+  console.log(machineListData);
   const dispatch = useDispatch();
 
   const [data, setData] = useState(machineList);
+
+  useEffect(() => {
+    dispatch(getMachines())
+  },[])
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.idMachine !== id));
@@ -68,6 +75,12 @@ export default function Machine() {
 
   return (
     <div className="machineList">
+            {machineListData?.loading && <CircularProgress />}
+      {machineListData?.error && (
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">a problem occured, try again !</Alert>
+        </Stack>
+      )}
       <div className="machineTitleContainer">
         <h1>Machine list</h1>
         <Link to="/machines/add">
@@ -75,7 +88,7 @@ export default function Machine() {
         </Link>
       </div>
       <DataGrid
-        rows={data}
+        rows={machineListData?.data}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row?.idMachine}

@@ -1,11 +1,31 @@
-import {
-  PermIdentity,
-} from "@material-ui/icons";
+import { PermIdentity } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { machineTypes } from "../../dummyData";
 import "./machineDetails.css";
+import reducer, { initialState } from "./reducer";
+import { getMachinesStore } from "../../app/applicationStates";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-export default function MachineDetails() {
+export default function MachineDetailsContainer() {
+  const machineListData = useSelector((state) => state?.[getMachinesStore]) || {
+    ...initialState,
+    data: {},
+  };
+  const machineToUpdate = machineListData?.data?.filter(
+    (machine) => machine?.idMachine === parseInt(window.location.href.split('/').at(-1))
+  )?.[0];
+
+  const [machineNumber, setMachineNumber] = useState(machineToUpdate?.numero);
+  const [machineType, setMachineType] = useState(machineToUpdate?.typeMachine);
+
+  console.log({
+    code: machineType,
+    label: machineTypes.filter((type) => type?.code === machineType)?.[0]
+      ?.label,
+  });
   return (
     <div className="machine">
       <div className="machineTitleContainer">
@@ -81,13 +101,26 @@ export default function MachineDetails() {
             <div className="machineUpdateLeft">
               <div className="machineUpdateItem">
                 <label>Machine number</label>
-                <input type="text" className="machineUpdateInput" />
+                <input
+                  value={machineNumber}
+                  onChange={(e) => setMachineNumber(e.target.value)}
+                  type="text"
+                  className="machineUpdateInput"
+                />
               </div>
               <div className="machineUpdateItem">
                 <label>Machine Type</label>
-                <select className="machineUpdateSelect" name="machineType" id="machineType">
+                <select
+                  defaultValue={machineTypes.filter(
+                    (type) => type?.code === machineType
+                  )?.[0]?.label}
+                  onChange={(e) => setMachineType(e.target.value)}
+                  className="machineUpdateSelect"
+                  name="machineType"
+                  id="machineType"
+                >
                   {machineTypes.map((type, index) => (
-                    <option className="selectItem" key={index} value={type}>
+                    <option key={index} value={type?.code}>
                       {type?.label}
                     </option>
                   ))}

@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) =>
         break;
 
       case GET_MACHINES_SUCCESS:
-        draft.data = action.todo;
+        draft.data = action.machinesList;
         draft.loading = false;
         draft.error = null;
         break;
