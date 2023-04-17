@@ -19,6 +19,9 @@ import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
 
 import history from "./app/history";
 import Login from "./pages/Login/Login";
+import AddClient from "./pages/AddClient/AddClient";
+import Clients from "./pages/Clients/Clients";
+import ClientDetails from "./pages/ClientDetails/ClientDetails";
 
 function App() {
 
@@ -54,6 +57,19 @@ function App() {
           <Route path="/machines">
             <Machine/>
           </Route>
+
+
+          <Route path="/clients/add" exact>
+            <AddClient/>
+          </Route>
+          <Route path="/clients/:idClient" exact>
+            <ClientDetails/>
+          </Route>
+          <Route path="/clients">
+            <Clients/>
+          </Route>
+
+
           <Route path="/products">
             <ProductList />
           </Route>

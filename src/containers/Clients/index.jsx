@@ -1,4 +1,4 @@
-import "./machine.css";
+import "./client.css";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -11,40 +11,40 @@ import { CircularProgress } from "@mui/material";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-import { machineList } from "../../dummyData";
+import { clientList } from "../../dummyData";
 import { useInjectReducer } from "./../../app/injectReducer";
 import { useInjectSaga } from "./../../app/injectSaga";
-import { getMachinesStore } from "../../app/applicationStates";
-import { deleteMachine, getMachines } from "./action";
+import { getClientsStore } from "../../app/applicationStates";
+import { deleteClient, getClients } from "./action";
 import reducer, { initialState } from "./reducer";
 import saga from "./saga";
 
-const key = getMachinesStore;
+const key = getClientsStore;
 
-export default function MachineList() {
+export default function ClientListContainer() {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const machineListData = useSelector((state) => state?.[key]) || initialState;
-  console.log(machineListData);
+  const clientListData = useSelector((state) => state?.[key]) || initialState;
+  console.log(clientListData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMachines())
+    dispatch(getClients())
   },[])
 
   const handleDelete = (id) => {
-    dispatch(deleteMachine(id));
+    dispatch(deleteClient(id));
   };
 
   const columns = [
-    { field: "idMachine", headerName: "ID", width: 90 },
+    { field: "idClient", headerName: "ID", width: 90 },
 
-    { field: "typeMachine", headerName: "TYPE MACHINE", width: 200 },
+    { field: "nom", headerName: "CLIENT NAME", width: 200 },
     {
-      field: "numero",
-      headerName: "NUMERO",
-      width: 120,
+      field: "adress",
+      headerName: "CLIENT ADDRESS",
+      width: 280,
     },
     {
       field: "action",
@@ -53,12 +53,12 @@ export default function MachineList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/machines/" + params?.row?.idMachine}>
-              <button className="machineListEdit">Edit</button>
+            <Link to={"/clients/" + params?.row?.idClient}>
+              <button className="clientListEdit">Edit</button>
             </Link>
             <DeleteOutline
-              className="machineListDelete"
-              onClick={() => handleDelete(params?.row?.idMachine)}
+              className="clientListDelete"
+              onClick={() => handleDelete(params?.row?.idClient)}
             />
           </>
         );
@@ -67,29 +67,29 @@ export default function MachineList() {
   ];
 
   useEffect(() => {
-    dispatch(getMachines());
+    dispatch(getClients());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="machineList">
-            {machineListData?.loading && <CircularProgress />}
-      {machineListData?.error && (
+    <div className="clientList">
+            {clientListData?.loading && <CircularProgress />}
+      {clientListData?.error && (
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="error">a problem occured, try again !</Alert>
         </Stack>
       )}
-      <div className="machineTitleContainer">
-        <h1>Machine list</h1>
-        <Link to="/machines/add">
-          <button className="machineAddButton">Add new machine</button>
+      <div className="clientTitleContainer">
+        <h1>Client list</h1>
+        <Link to="/clients/add">
+          <button className="clientAddButton">Add new client</button>
         </Link>
       </div>
       <DataGrid
-        rows={machineListData?.data}
+        rows={clientListData?.data}
         disableSelectionOnClick
         columns={columns}
-        getRowId={(row) => row?.idMachine}
+        getRowId={(row) => row?.idClient}
         pageSize={8}
         checkboxSelection
       />

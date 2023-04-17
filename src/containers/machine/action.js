@@ -27,7 +27,7 @@ export function getMachinesError(error) {
   };
 }
 
-export function deleteMachines(id) {
+export function deleteMachine(id) {
   return {
     type: DELETE_MACHINE,
     id

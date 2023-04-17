@@ -1,0 +1,3 @@
+export const UPDATE_CLIENT = 'admin/App/UPDATE_CLIENT';
+export const UPDATE_CLIENT_SUCCESS = 'admin/App/UPDATE_CLIENT_SUCCESS';
+export const UPDATE_CLIENT_ERROR = 'admin/App/UPDATE_CLIENT_ERROR';

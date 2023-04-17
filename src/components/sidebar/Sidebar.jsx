@@ -57,6 +57,12 @@ export default function Sidebar() {
                 Machines
               </li>
             </Link>
+            <Link to="/clients" className="link">
+              <li className="sidebarListItem">
+                <PermIdentity className="sidebarIcon" />
+                Clients
+              </li>
+            </Link>
             <Link to="/products" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
