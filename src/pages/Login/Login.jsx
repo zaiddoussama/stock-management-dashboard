@@ -6,8 +6,8 @@ function Login({ config }) {
   const [error, setError] = useState(null);
 
   const payload = {
-    username: "test",
-    password: "test",
+    username: "admin",
+    password: "123",
   };
   return (
     <>
