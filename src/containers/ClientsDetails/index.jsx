@@ -1,36 +1,73 @@
-import { PermIdentity } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { clientMachiness } from "../../dummyData";
+import { useInjectReducer } from "./../../app/injectReducer";
+import { useInjectSaga } from "./../../app/injectSaga";
 import "./clientDetails.css";
 import reducer, { initialState } from "./reducer";
-import { addClientStore, getClientsStore } from "../../app/applicationStates";
+import saga from "./saga";
+import { updateClientStore } from "../../app/applicationStates";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getAvailableMachines } from "../AddClient/action";
+import { getClient, updateClient } from "./action";
+
+const key = updateClientStore;
 
 export default function ClientDetailsContainer() {
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
   const dispatch = useDispatch();
-  const availableMachines = useSelector((state) => state?.[addClientStore]) || [];
-  const clientListData = useSelector((state) => state?.[getClientsStore]) || {
-    ...initialState,
-    data: {},
+  const [clientName, setClientName] = useState("");
+  const [clientAddress, setClientAddress] = useState("");
+  const [clientMachines, setClientMachines] = useState([]);
+  const [selectedMachines, setSelectedMachines] = useState([]);
+  const [image, setImage] = useState(null);
+
+  const updateClientOutput = useSelector((state) => state?.[updateClientStore]) || initialState;
+
+  const onClick = () => {
+    dispatch(updateClient({
+      nom: clientName,
+      adress: clientAddress,
+      image: image,
+      machines: clientMachines
+    }))
+  }
+
+  const onFileChange = (e) => {
+    setImage(e.target.files[0]);
   };
-  const clientToUpdate = clientListData?.data?.filter(
-    (client) => client?.idClient === parseInt(window.location.href.split('/').at(-1))
-  )?.[0];
 
-  console.log(availableMachines)
+  const handleSelectChange = (e) => {
+    var options = e.target.options;
+    var value = [];
+    for (var i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push({idMachine: options[i].value});
+      }
+    }
+    setSelectedMachines(value);
+  };
 
-  const [clientName, setClientName] = useState(clientToUpdate?.nom);
-  const [clientAddress, setClientAddress] = useState(clientToUpdate?.adress);
-  const [clientMachines, setClientMachines] = useState(clientToUpdate?.machines);
+  useEffect(() => {
+    dispatch(getClient(parseInt(window.location.href.split("/").at(-1))));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     dispatch(getAvailableMachines());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setClientAddress(updateClientOutput?.currentClient?.data?.adress || "");
+    setClientMachines(updateClientOutput?.currentClient?.data?.machines || []);
+    setClientName(updateClientOutput?.currentClient?.data?.nom || "");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateClientOutput?.currentClient]);
+
+console.log(selectedMachines)
 
   return (
     <div className="client">
@@ -41,7 +78,6 @@ export default function ClientDetailsContainer() {
         </Link>
       </div>
       <div className="clientContainer">
-
         <div className="clientUpdate">
           <span className="clientUpdateTitle">Edit</span>
           <form className="clientUpdateForm">
@@ -65,25 +101,33 @@ export default function ClientDetailsContainer() {
                 />
               </div>
               <div className="clientUpdateItem">
-                <label>Client Type</label>
+                <label>Client Machines</label>
                 <select
-
-                  onChange={(e) => setClientMachines(e.target.value)}
+                  onChange={handleSelectChange}
                   className="clientUpdateSelect"
                   name="clientMachines"
                   id="clientMachines"
                   multiple
                 >
-                  {[].map((type, index) => (
-                    <option key={index} value={type?.code}>
-                      {type?.label}
+                  {updateClientOutput?.machines?.data.map((machine, index) => (
+                    <option
+                      selected={clientMachines
+                        .map((m) => m?.idMachine)
+                        .includes(machine?.idMachine)}
+                      key={index}
+                      value={machine?.idMachine}
+                    >
+                      {machine?.numero}
                     </option>
                   ))}
                 </select>
               </div>
+              <div className="clientUpdateItem">
+                <input type="file" onChange={onFileChange} />
+              </div>
             </div>
             <div className="clientUpdateRight">
-              <button className="clientUpdateButton">Update</button>
+              <button className="clientUpdateButton" onClick={onClick}>Update</button>
             </div>
           </form>
         </div>

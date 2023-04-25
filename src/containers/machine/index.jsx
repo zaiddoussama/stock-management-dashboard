@@ -26,7 +26,6 @@ export default function MachineList() {
   useInjectSaga({ key, saga });
 
   const machineListData = useSelector((state) => state?.[key]) || initialState;
-  console.log(machineListData);
   const dispatch = useDispatch();
 
   useEffect(() => {

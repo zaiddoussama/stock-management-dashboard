@@ -4,7 +4,8 @@ import {
   GET_CLIENTS_ERROR,
   DELETE_CLIENT,
   DELETE_CLIENT_SUCCESS,
-  DELETE_CLIENT_ERROR
+  DELETE_CLIENT_ERROR,
+  FILTER_CLIENTS
 } from "./constants";
 
 export function getClients() {
@@ -16,6 +17,13 @@ export function getClients() {
 export function getClientsSuccess(clients) {
   return {
     type: GET_CLIENTS_SUCCESS,
+    clients,
+  };
+}
+
+export function filterClients(clients) {
+  return {
+    type: FILTER_CLIENTS,
     clients,
   };
 }
@@ -34,10 +42,10 @@ export function deleteClient(id) {
   };
 }
 
-export function deleteClientSuccess(clients) {
+export function deleteClientSuccess(baseResponse) {
   return {
     type: DELETE_CLIENT_SUCCESS,
-    clients,
+    baseResponse,
   };
 }
 

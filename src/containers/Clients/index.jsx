@@ -15,7 +15,7 @@ import { clientList } from "../../dummyData";
 import { useInjectReducer } from "./../../app/injectReducer";
 import { useInjectSaga } from "./../../app/injectSaga";
 import { getClientsStore } from "../../app/applicationStates";
-import { deleteClient, getClients } from "./action";
+import { deleteClient, filterClients, getClients } from "./action";
 import reducer, { initialState } from "./reducer";
 import saga from "./saga";
 
@@ -26,15 +26,17 @@ export default function ClientListContainer() {
   useInjectSaga({ key, saga });
 
   const clientListData = useSelector((state) => state?.[key]) || initialState;
-  console.log(clientListData);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getClients())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleDelete = (id) => {
     dispatch(deleteClient(id));
+    // eslint-disable-next-line eqeqeq
+   dispatch(filterClients(clientListData?.clients?.data.filter(client => client?.idClient != id)))
   };
 
   const columns = [
@@ -73,8 +75,8 @@ export default function ClientListContainer() {
 
   return (
     <div className="clientList">
-            {clientListData?.loading && <CircularProgress />}
-      {clientListData?.error && (
+            {clientListData?.clients?.loading && <CircularProgress />}
+      {clientListData?.clients?.error && (
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="error">a problem occured, try again !</Alert>
         </Stack>
@@ -86,7 +88,7 @@ export default function ClientListContainer() {
         </Link>
       </div>
       <DataGrid
-        rows={clientListData?.data}
+        rows={clientListData?.clients?.data}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row?.idClient}
