@@ -1,13 +1,39 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import instance from "./../../app/request";
-import { updateClientSuccess, updateClientError, getAvailableMachinesSuccess, getAvailableMachinesError, getClientSuccess, getClientError } from "./action";
+import {
+  updateClientSuccess,
+  updateClientError,
+  getAvailableMachinesSuccess,
+  getAvailableMachinesError,
+  getClientSuccess,
+  getClientError,
+} from "./action";
 import { GET_AVAILABLE_MACHINES, GET_CLIENT, UPDATE_CLIENT } from "./constants";
 
 export function* updateMachineEmitter(action) {
   const requestURL = "v1/client/update";
+  var bodyFormData = new FormData();
+  for (const property in action?.client) {
+    if (property === "machines") {
+      bodyFormData.append(
+        "machinesJson",
+        JSON.stringify(action?.client?.[property])
+      );
+    } else {
+      bodyFormData.append(property, action?.client?.[property]);
+    }
+  }
+  const options = {
+    headers: { "Content-Type": "multipart/form-data" },
+  };
   try {
-    const response = yield call(instance.post, requestURL, action?.client);
+    const response = yield call(
+      instance.post,
+      requestURL,
+      bodyFormData,
+      options
+    );
     yield put(updateClientSuccess(response?.data));
   } catch (err) {
     yield put(updateClientError(err));

@@ -26,12 +26,13 @@ export default function ClientDetailsContainer() {
 
   const updateClientOutput = useSelector((state) => state?.[updateClientStore]) || initialState;
 
-  const onClick = () => {
+  const onClick = (event) => {
+    event.preventDefault();
     dispatch(updateClient({
       nom: clientName,
       adress: clientAddress,
       image: image,
-      machines: clientMachines
+      machines: selectedMachines
     }))
   }
 
@@ -67,7 +68,6 @@ export default function ClientDetailsContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateClientOutput?.currentClient]);
 
-console.log(selectedMachines)
 
   return (
     <div className="client">

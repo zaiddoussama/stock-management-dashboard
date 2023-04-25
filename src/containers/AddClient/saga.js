@@ -25,7 +25,7 @@ export function* addClientEmitter(action) {
   const options = {
     headers: { "Content-Type": "multipart/form-data" },
   };
-  console.log(bodyFormData);
+
   try {
     const response = yield call(
       instance.post,

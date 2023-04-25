@@ -10,6 +10,10 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 export default function MachineDetailsContainer() {
+const onClick = (event) => {
+  event.preventDefault()
+}
+
   const machineListData = useSelector((state) => state?.[getMachinesStore]) || {
     ...initialState,
     data: {},
@@ -128,7 +132,7 @@ export default function MachineDetailsContainer() {
               </div>
             </div>
             <div className="machineUpdateRight">
-              <button className="machineUpdateButton">Update</button>
+              <button className="machineUpdateButton" onClick={onClick}>Update</button>
             </div>
           </form>
         </div>
