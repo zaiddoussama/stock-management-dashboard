@@ -5,7 +5,7 @@ import { UPDATE_MACHINE_SUCCESS, UPDATE_MACHINE, UPDATE_MACHINE_ERROR } from './
 export const initialState = {
   loading: false,
   error: null,
-  data: [],
+  data: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -15,11 +15,11 @@ const reducer = (state = initialState, action) =>
       case UPDATE_MACHINE:
         draft.loading = true;
         draft.error = null;
-        draft.data = [];
+        draft.data = {};
         break;
 
       case UPDATE_MACHINE_SUCCESS:
-        draft.data = action.todo;
+        draft.data = action.machine;
         draft.loading = false;
         draft.error = null;
         break;
@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) =>
       case UPDATE_MACHINE_ERROR:
         draft.error = action.error;
         draft.loading = false;
-        draft.data = [];
+        draft.data = {};
         break;
     }
   });

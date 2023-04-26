@@ -1,25 +1,46 @@
 import { PermIdentity } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { useInjectReducer } from "./../../app/injectReducer";
+import { useInjectSaga } from "./../../app/injectSaga";
 import { machineTypes } from "../../dummyData";
+import saga from "./saga";
 import "./machineDetails.css";
 import reducer, { initialState } from "./reducer";
-import { getMachinesStore } from "../../app/applicationStates";
+import {
+  getMachinesStore,
+  updateMachineStore,
+} from "../../app/applicationStates";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { updateMachine } from "./action";
+import Loader from "../../components/Loader";
+
+const key = updateMachineStore;
 
 export default function MachineDetailsContainer() {
-const onClick = (event) => {
-  event.preventDefault()
-}
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+
+  const dispatch = useDispatch();
+
+  const onClick = (event) => {
+    event.preventDefault();
+    dispatch(updateMachine({
+      idMachine: parseInt(window.location.href.split("/").at(-1)),
+      typeMachine: machineType,
+      numero: machineNumber
+    }))
+  };
 
   const machineListData = useSelector((state) => state?.[getMachinesStore]) || {
     ...initialState,
     data: {},
   };
   const machineToUpdate = machineListData?.data?.filter(
-    (machine) => machine?.idMachine === parseInt(window.location.href.split('/').at(-1))
+    (machine) =>
+      machine?.idMachine === parseInt(window.location.href.split("/").at(-1))
   )?.[0];
 
   const [machineNumber, setMachineNumber] = useState(machineToUpdate?.numero);
@@ -32,6 +53,7 @@ const onClick = (event) => {
   });
   return (
     <div className="machine">
+      <Loader/>
       <div className="machineTitleContainer">
         <h1 className="machineTitle">Edit Machine</h1>
         <Link to="/machines/add">
@@ -39,66 +61,6 @@ const onClick = (event) => {
         </Link>
       </div>
       <div className="machineContainer">
-        <div className="machineShow">
-          <div className="machineShowTop">
-            <img
-              src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-              className="machineShowImg"
-            />
-            <div className="machineShowTopTitle">
-              <span className="machineShowUsername">Machine number</span>
-              <span className="machineShowUserTitle">Type : A</span>
-            </div>
-          </div>
-          <div className="machineShowBottom">
-            <span className="machineShowTitle">Machine linked to clients</span>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="machineShowInfo">
-              <PermIdentity className="machineShowIcon" />
-              <span className="machineShowInfoTitle">annabeck99</span>
-            </div>
-          </div>
-        </div>
         <div className="machineUpdate">
           <span className="machineUpdateTitle">Edit</span>
           <form className="machineUpdateForm">
@@ -115,9 +77,11 @@ const onClick = (event) => {
               <div className="machineUpdateItem">
                 <label>Machine Type</label>
                 <select
-                  defaultValue={machineTypes.filter(
-                    (type) => type?.code === machineType
-                  )?.[0]?.label}
+                  defaultValue={
+                    machineTypes.filter(
+                      (type) => type?.code === machineType
+                    )?.[0]?.label
+                  }
                   onChange={(e) => setMachineType(e.target.value)}
                   className="machineUpdateSelect"
                   name="machineType"
@@ -132,7 +96,9 @@ const onClick = (event) => {
               </div>
             </div>
             <div className="machineUpdateRight">
-              <button className="machineUpdateButton" onClick={onClick}>Update</button>
+              <button className="machineUpdateButton" onClick={onClick}>
+                Update
+              </button>
             </div>
           </form>
         </div>

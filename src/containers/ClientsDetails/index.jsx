@@ -17,7 +17,9 @@ const key = updateClientStore;
 export default function ClientDetailsContainer() {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
+
   const dispatch = useDispatch();
+  
   const [clientName, setClientName] = useState("");
   const [clientAddress, setClientAddress] = useState("");
   const [clientMachines, setClientMachines] = useState([]);

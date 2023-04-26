@@ -5,3 +5,4 @@ export const updateMachinesStore = "updateMachinesStore";
 export const addClientStore = "addClientStore";
 export const getClientsStore = "getClientsStore";
 export const updateClientStore = "updateClientStore";
+export const updateMachineStore = "updateMachineStore";

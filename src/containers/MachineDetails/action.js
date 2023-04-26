@@ -4,17 +4,17 @@ import {
   UPDATE_MACHINE_ERROR,
 } from "./constants";
 
-export function updateMachine(payload) {
+export function updateMachine(machine) {
   return {
     type: UPDATE_MACHINE,
-    payload
+    machine
   };
 }
 
-export function updateMachineSuccess(payload) {
+export function updateMachineSuccess(machine) {
   return {
     type: UPDATE_MACHINE_SUCCESS,
-    payload,
+    machine,
   };
 }
 
