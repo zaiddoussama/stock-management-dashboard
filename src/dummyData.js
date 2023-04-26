@@ -254,6 +254,14 @@ export const machineList = [
   { idMachine: 142, typeMachine: "A", numero: "15Re2" },
 ];
 
+export const programWeeklyRows = [
+  {id: 1, startDate: "27-03-2023", endDate: "31-03-2023", client: "bouskora coffee", ravitailleur: "Ahmed"},
+  {id: 1234, startDate: "01-04-2023", endDate: "05-04-2023", client: "ABC Corporation", ravitailleur: "John Doe"},
+  {id: 5678, startDate: "15-04-2023", endDate: "20-04-2023", client: "XYZ Inc.", ravitailleur: "Jane Smith"},
+  {id: 9012, startDate: "10-05-2023", endDate: "15-05-2023", client: "Acme Corporation", ravitailleur: "Bob Johnson"},
+  {id: 3456, startDate: "22-05-2023", endDate: "25-05-2023", client: "Smith & Sons", ravitailleur: "Sarah Brown"},
+  {id: 7890, startDate: "01-06-2023", endDate: "06-06-2023", client: "Johnson Enterprises", ravitailleur: "Michael Lee"},
+];
 
 export const machineTypes = [
   {
