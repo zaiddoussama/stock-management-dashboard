@@ -16,6 +16,8 @@ import Machine from "./pages/machine/Machine";
 import MachineDetails from "./pages/MachineDetails/MachineDetails";
 import AddMachine from "./pages/AddMachine/AddMachine";
 import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
+import ProgramWeeklyList from "./pages/ProgramWeeklyList/programWeeklyList";
+import NewProgramWeekly from "./pages/newProgramWeekly/newProgramWeekly";
 
 import history from "./app/history";
 import Login from "./pages/Login/Login";
@@ -90,6 +92,12 @@ function App() {
           </Route>
           <Route path="/editProducType">
             <ProductTypeDetails />
+          </Route>
+          <Route path="/programWeeklyList">
+            <ProgramWeeklyList />
+          </Route>
+          <Route path="/newprogramweekly">
+            <NewProgramWeekly />
           </Route>
         </Switch>
       </div>

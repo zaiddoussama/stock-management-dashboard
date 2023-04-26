@@ -1,23 +1,20 @@
 import "./machine.css";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { CircularProgress } from "@mui/material";
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 
-import { machineList } from "../../dummyData";
 import { useInjectReducer } from "./../../app/injectReducer";
 import { useInjectSaga } from "./../../app/injectSaga";
 import { getMachinesStore } from "../../app/applicationStates";
-import { deleteMachine, getMachines } from "./action";
+import { deleteMachine, getMachines, updateMachines } from "./action";
 import reducer, { initialState } from "./reducer";
 import saga from "./saga";
+import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
 
 const key = getMachinesStore;
 
@@ -26,15 +23,22 @@ export default function MachineList() {
   useInjectSaga({ key, saga });
 
   const machineListData = useSelector((state) => state?.[key]) || initialState;
-  console.log(machineListData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMachines())
-  },[])
+    dispatch(getMachines());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDelete = (id) => {
     dispatch(deleteMachine(id));
+    // eslint-disable-next-line eqeqeq
+    dispatch(
+      updateMachines(
+        // eslint-disable-next-line eqeqeq
+        machineListData?.data.filter((machine) => machine?.idMachine != id)
+      )
+    );
   };
 
   const columns = [
@@ -73,11 +77,13 @@ export default function MachineList() {
 
   return (
     <div className="machineList">
-            {machineListData?.loading && <CircularProgress />}
-      {machineListData?.error && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="error">a problem occured, try again !</Alert>
-        </Stack>
+      {(machineListData?.loading ||
+        machineListData?.deleteMachine?.loading) && <Loader />}
+      {(machineListData?.error || machineListData?.deleteMachine?.error) && (
+        <AlertPopup type="error" message="a problem occured" />
+      )}
+      {machineListData?.deleteMachine?.success && (
+        <AlertPopup type="success" message="machine deleted" />
       )}
       <div className="machineTitleContainer">
         <h1>Machine list</h1>

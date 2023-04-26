@@ -4,7 +4,8 @@ import {
   GET_MACHINES_ERROR,
   DELETE_MACHINE,
   DELETE_MACHINE_SUCCESS,
-  DELETE_MACHINE_ERROR
+  DELETE_MACHINE_ERROR,
+  UPDATE_MACHINES
 } from "./constants";
 
 export function getMachines() {
@@ -34,10 +35,17 @@ export function deleteMachine(id) {
   };
 }
 
-export function deleteMachineSuccess(machinesList) {
+export function updateMachines(machines) {
+  return {
+    type: UPDATE_MACHINES,
+    machines,
+  };
+}
+
+export function deleteMachineSuccess(deleteMachine) {
   return {
     type: DELETE_MACHINE_SUCCESS,
-    machinesList,
+    deleteMachine,
   };
 }
 

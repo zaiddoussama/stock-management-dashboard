@@ -1,23 +1,21 @@
 import "./client.css";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { CircularProgress } from "@mui/material";
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 
-import { clientList } from "../../dummyData";
 import { useInjectReducer } from "./../../app/injectReducer";
 import { useInjectSaga } from "./../../app/injectSaga";
 import { getClientsStore } from "../../app/applicationStates";
-import { deleteClient, getClients } from "./action";
+import { deleteClient, filterClients, getClients } from "./action";
 import reducer, { initialState } from "./reducer";
 import saga from "./saga";
+import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
 
 const key = getClientsStore;
 
@@ -26,15 +24,22 @@ export default function ClientListContainer() {
   useInjectSaga({ key, saga });
 
   const clientListData = useSelector((state) => state?.[key]) || initialState;
-  console.log(clientListData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getClients())
-  },[])
+    dispatch(getClients());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDelete = (id) => {
     dispatch(deleteClient(id));
+    // eslint-disable-next-line eqeqeq
+    dispatch(
+      filterClients(
+        // eslint-disable-next-line eqeqeq
+        clientListData?.clients?.data.filter((client) => client?.idClient != id)
+      )
+    );
   };
 
   const columns = [
@@ -73,12 +78,16 @@ export default function ClientListContainer() {
 
   return (
     <div className="clientList">
-            {clientListData?.loading && <CircularProgress />}
-      {clientListData?.error && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="error">a problem occured, try again !</Alert>
-        </Stack>
+      {(clientListData?.clients?.loading ||
+        clientListData?.deleteClientBaseResponse?.loading) && <Loader />}
+      {clientListData?.deleteClientBaseResponse?.success && (
+        <AlertPopup type="success" message="client deleted" />
       )}
+      {(clientListData?.clients?.error ||
+        clientListData?.deleteClientBaseResponse?.error) && (
+        <AlertPopup type="error" message="a problem occured" />
+      )}
+
       <div className="clientTitleContainer">
         <h1>Client list</h1>
         <Link to="/clients/add">
@@ -86,7 +95,7 @@ export default function ClientListContainer() {
         </Link>
       </div>
       <DataGrid
-        rows={clientListData?.data}
+        rows={clientListData?.clients?.data}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row?.idClient}
