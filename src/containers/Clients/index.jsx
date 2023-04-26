@@ -36,6 +36,7 @@ export default function ClientListContainer() {
     // eslint-disable-next-line eqeqeq
     dispatch(
       filterClients(
+        // eslint-disable-next-line eqeqeq
         clientListData?.clients?.data.filter((client) => client?.idClient != id)
       )
     );

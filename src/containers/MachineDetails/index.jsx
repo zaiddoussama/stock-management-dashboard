@@ -1,4 +1,3 @@
-import { PermIdentity } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useInjectReducer } from "./../../app/injectReducer";
 import { useInjectSaga } from "./../../app/injectSaga";
@@ -11,7 +10,6 @@ import {
   updateMachineStore,
 } from "../../app/applicationStates";
 import { useState } from "react";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updateMachine } from "./action";

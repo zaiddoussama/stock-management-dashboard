@@ -1,9 +1,5 @@
 import "./addClient.css";
 
-import { CircularProgress } from "@mui/material";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
-
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -53,7 +49,7 @@ export function AddClientContainer() {
       addClient({
         nom: name,
         adress: address,
-        // image: image,
+        image: image,
         machines: clientMachines.map((id) => {
           return { idMachine: id };
         }),

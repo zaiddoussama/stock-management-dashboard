@@ -1,8 +1,5 @@
 import "./addMachine.css";
 
-import { CircularProgress } from "@mui/material";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";

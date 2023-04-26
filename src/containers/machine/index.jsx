@@ -35,6 +35,7 @@ export default function MachineList() {
     // eslint-disable-next-line eqeqeq
     dispatch(
       updateMachines(
+        // eslint-disable-next-line eqeqeq
         machineListData?.data.filter((machine) => machine?.idMachine != id)
       )
     );
