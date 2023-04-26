@@ -14,6 +14,8 @@ import { addClient, getAvailableMachines } from "./action";
 import reducer, { initialState } from "./reducer";
 import saga from "./saga";
 import { useEffect, useState } from "react";
+import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
 
 const key = addClientStore;
 
@@ -67,17 +69,14 @@ export function AddClientContainer() {
   return (
     <div className="newClient">
       {(clientAddOutput?.machines?.loading ||
-        clientAddOutput?.client?.loading) && <CircularProgress />}
-      {(clientAddOutput?.machines?.error || clientAddOutput?.client?.error) && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="error">a problem occured, try again !</Alert>
-        </Stack>
-      )}
+        clientAddOutput?.client?.loading) && <Loader />}
       {clientAddOutput?.client?.success && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="success">client added</Alert>
-        </Stack>
+        <AlertPopup type="success" message="client added" />
       )}
+      {(clientAddOutput?.machines?.error || clientAddOutput?.client?.error) && (
+        <AlertPopup type="error" message="a problem occured" />
+      )}
+
       <h1 className="newClientTitle">New Client</h1>
       <form className="newClientForm">
         <div className="newClientItem">

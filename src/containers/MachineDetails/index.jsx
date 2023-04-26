@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updateMachine } from "./action";
 import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
 
 const key = updateMachineStore;
 
@@ -34,6 +35,7 @@ export default function MachineDetailsContainer() {
     }))
   };
 
+  const machineUpdate =  useSelector((state) => state?.[updateMachineStore]) || initialState;
   const machineListData = useSelector((state) => state?.[getMachinesStore]) || {
     ...initialState,
     data: {},
@@ -46,14 +48,11 @@ export default function MachineDetailsContainer() {
   const [machineNumber, setMachineNumber] = useState(machineToUpdate?.numero);
   const [machineType, setMachineType] = useState(machineToUpdate?.typeMachine);
 
-  console.log({
-    code: machineType,
-    label: machineTypes.filter((type) => type?.code === machineType)?.[0]
-      ?.label,
-  });
   return (
     <div className="machine">
-      <Loader/>
+      {machineUpdate?.loading && <Loader/>}
+      {machineUpdate?.success && <AlertPopup type="success" message="machine updated"/>}
+      {machineUpdate?.error && <AlertPopup type="error" message="a problem occured"/>}
       <div className="machineTitleContainer">
         <h1 className="machineTitle">Edit Machine</h1>
         <Link to="/machines/add">

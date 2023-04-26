@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getAvailableMachines } from "../AddClient/action";
 import { getClient, updateClient } from "./action";
+import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
 
 const key = updateClientStore;
 
@@ -19,24 +21,27 @@ export default function ClientDetailsContainer() {
   useInjectSaga({ key, saga });
 
   const dispatch = useDispatch();
-  
+
   const [clientName, setClientName] = useState("");
   const [clientAddress, setClientAddress] = useState("");
   const [clientMachines, setClientMachines] = useState([]);
   const [selectedMachines, setSelectedMachines] = useState([]);
   const [image, setImage] = useState(null);
 
-  const updateClientOutput = useSelector((state) => state?.[updateClientStore]) || initialState;
+  const updateClientOutput =
+    useSelector((state) => state?.[updateClientStore]) || initialState;
 
   const onClick = (event) => {
     event.preventDefault();
-    dispatch(updateClient({
-      nom: clientName,
-      adress: clientAddress,
-      image: image,
-      machines: selectedMachines
-    }))
-  }
+    dispatch(
+      updateClient({
+        nom: clientName,
+        adress: clientAddress,
+        image: image,
+        machines: selectedMachines,
+      })
+    );
+  };
 
   const onFileChange = (e) => {
     setImage(e.target.files[0]);
@@ -47,7 +52,7 @@ export default function ClientDetailsContainer() {
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
-        value.push({idMachine: options[i].value});
+        value.push({ idMachine: options[i].value });
       }
     }
     setSelectedMachines(value);
@@ -70,9 +75,19 @@ export default function ClientDetailsContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateClientOutput?.currentClient]);
 
-
   return (
     <div className="client">
+      {(updateClientOutput?.loading ||
+        updateClientOutput?.machines?.loading ||
+        updateClientOutput?.currentClient?.loading) && <Loader />}
+      {updateClientOutput?.success && (
+        <AlertPopup type="success" message="client updated" />
+      )}
+      {(updateClientOutput?.error ||
+        updateClientOutput?.machines?.error ||
+        updateClientOutput?.currentClient?.error) && (
+        <AlertPopup type="error" message="a problem occured" />
+      )}
       <div className="clientTitleContainer">
         <h1 className="clientTitle">Edit Client</h1>
         <Link to="/clients/add">
@@ -129,7 +144,9 @@ export default function ClientDetailsContainer() {
               </div>
             </div>
             <div className="clientUpdateRight">
-              <button className="clientUpdateButton" onClick={onClick}>Update</button>
+              <button className="clientUpdateButton" onClick={onClick}>
+                Update
+              </button>
             </div>
           </form>
         </div>

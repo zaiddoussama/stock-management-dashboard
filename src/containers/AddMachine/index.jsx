@@ -1,8 +1,8 @@
 import "./addMachine.css";
 
 import { CircularProgress } from "@mui/material";
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -15,6 +15,8 @@ import { addMachine } from "./action";
 import reducer from "./reducer";
 import saga from "./saga";
 import { useState } from "react";
+import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
 
 const key = addMachineStore;
 
@@ -39,17 +41,14 @@ export function AddMachine() {
 
   return (
     <div className="newMachine">
-      {machineAddOutput?.loading && <CircularProgress />}
-      {machineAddOutput?.error && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="error">a problem occured, try again !</Alert>
-        </Stack>
-      )}
+      {machineAddOutput?.loading && <Loader />}
       {machineAddOutput?.success && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="success">machine added</Alert>
-        </Stack>
+        <AlertPopup type="success" message="machine added" />
       )}
+      {machineAddOutput?.error && (
+        <AlertPopup type="error" message="a problem occured" />
+      )}
+
       <h1 className="newMachineTitle">New Machine</h1>
       <form className="newMachineForm">
         <div className="newMachineItem">

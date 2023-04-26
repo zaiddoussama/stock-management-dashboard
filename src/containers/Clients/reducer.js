@@ -18,6 +18,7 @@ export const initialState = {
   },
   deleteClientBaseResponse: {
     loading: false,
+    success: false,
     error: null,
     data: {},
   },
@@ -53,6 +54,7 @@ const reducer = (state = initialState, action) =>
 
       case DELETE_CLIENT:
         draft.deleteClientBaseResponse.loading = true;
+        draft.deleteClientBaseResponse.success = false;
         draft.deleteClientBaseResponse.error = null;
         draft.deleteClientBaseResponse.data = {};
         break;
@@ -60,12 +62,14 @@ const reducer = (state = initialState, action) =>
       case DELETE_CLIENT_SUCCESS:
         draft.deleteClientBaseResponse.data = action.baseResponse;
         draft.deleteClientBaseResponse.loading = false;
+        draft.deleteClientBaseResponse.success = true;
         draft.deleteClientBaseResponse.error = null;
         break;
 
       case DELETE_CLIENT_ERROR:
         draft.deleteClientBaseResponse.error = action.error;
         draft.deleteClientBaseResponse.loading = false;
+        draft.deleteClientBaseResponse.success = false;
         draft.deleteClientBaseResponse.data = {};
         break;
     }
