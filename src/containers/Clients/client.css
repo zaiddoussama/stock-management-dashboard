@@ -1,13 +1,13 @@
-.machineList{
+.clientList{
   flex: 4;
 }
 
-.machineListItem{
+.clientListItem{
   display: flex;
   align-items: center;
 }
 
-.machineListImg {
+.clientListImg {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -15,7 +15,7 @@
   margin-right: 10px;
 }
 
-.machineListEdit{
+.clientListEdit{
   border: none;
   border-radius: 10px;
   padding: 5px 10px;
@@ -25,19 +25,19 @@
   margin-right: 20px;
 }
 
-.machineListDelete{
+.clientListDelete{
   color: red;
   cursor: pointer;
 }
 
-.machineTitleContainer {
+.clientTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
 }
 
-.machineAddButton {
+.clientAddButton {
   width: 150px;
   border: none;
   padding: 5px;

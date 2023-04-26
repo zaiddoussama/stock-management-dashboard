@@ -273,7 +273,7 @@ export const machineTypes = [
     label: 'Machine B'
   },
   {
-    code: 'AB',
+    code: 'A_B',
     label: 'Machine AB'
   },
 ]

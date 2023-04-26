@@ -1,15 +1,15 @@
-.machine {
+.client {
   flex: 4;
   padding: 20px;
 }
 
-.machineTitleContainer {
+.clientTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.machineAddButton {
+.clientAddButton {
   width: 80px;
   border: none;
   padding: 5px;
@@ -20,20 +20,20 @@
   font-size: 16px;
 }
 
-.machineContainer {
+.clientContainer {
   height: 300px;
   display: flex;
   margin-top: 20px;
 }
 
-.machineShow {
+.clientShow {
   flex: 1;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
-.machineUpdate {
+.clientUpdate {
   flex: 2;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
@@ -41,101 +41,101 @@
   margin-left: 20px;
 }
 
-.machineShowTop {
+.clientShowTop {
   display: flex;
   align-items: center;
 }
 
-.machineShowImg {
+.clientShowImg {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.machineShowTopTitle {
+.clientShowTopTitle {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
 }
 
-.machineShowUsername {
+.clientShowUsername {
   font-weight: 600;
 }
 
-.machineShowUserTitle {
+.clientShowUserTitle {
   font-weight: 300;
 }
 
-.machineShowBottom {
+.clientShowBottom {
   margin-top: 20px;
   height: 180px;
   overflow-y: scroll;
 }
 
-.machineShowTitle {
+.clientShowTitle {
   font-size: 14px;
   font-weight: 600;
   color: rgb(175, 170, 170);
 }
 
-.machineShowInfo {
+.clientShowInfo {
   display: flex;
   align-items: center;
   margin: 20px 0px;
   color: #444;
 }
 
-.machineShowIcon {
+.clientShowIcon {
   font-size: 16px !important;
 }
 
-.machineShowInfoTitle {
+.clientShowInfoTitle {
   margin-left: 10px;
 }
 
-.machineUpdateTitle {
+.clientUpdateTitle {
   font-size: 24px;
   font-weight: 600;
 }
 
-.machineUpdateForm {
+.clientUpdateForm {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.machineUpdateItem {
+.clientUpdateItem {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
 }
 
-.machineUpdateItem > label {
+.clientUpdateItem > label {
   margin-bottom: 5px;
   font-size: 14px;
 }
 
-.machineUpdateSelect,
-.machineUpdateInput {
+.clientUpdateSelect,
+.clientUpdateInput {
   border: none;
   width: 250px;
   height: 30px;
   border-bottom: 1px solid gray;
 }
 
-.machineUpdateRight {
+.clientUpdateRight {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.machineUpdateUpload {
+.clientUpdateUpload {
   display: flex;
   align-items: center;
 }
 
-.machineUpdateImg {
+.clientUpdateImg {
   width: 100px;
   height: 100px;
   border-radius: 10px;
@@ -143,11 +143,11 @@
   margin-right: 20px;
 }
 
-.machineUpdateIcon {
+.clientUpdateIcon {
   cursor: pointer;
 }
 
-.machineUpdateButton {
+.clientUpdateButton {
   border-radius: 5px;
   border: none;
   padding: 5px;

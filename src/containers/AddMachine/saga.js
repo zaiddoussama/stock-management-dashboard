@@ -5,7 +5,7 @@ import { addMachineError, addMachineSuccess } from "./action";
 import { ADD_MACHINE } from "./constants";
 
 export function* addMachineEmitter(action) {
-  const requestURL = "/todos/1";
+  const requestURL = "v1/machine/ajout";
   try {
     const response = yield call(instance.post, requestURL, action?.machine);
     yield put(addMachineSuccess(response?.data));

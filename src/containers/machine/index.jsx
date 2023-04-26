@@ -1,35 +1,44 @@
 import "./machine.css";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 
-import { machineList } from "../../dummyData";
 import { useInjectReducer } from "./../../app/injectReducer";
 import { useInjectSaga } from "./../../app/injectSaga";
 import { getMachinesStore } from "../../app/applicationStates";
-import { getMachines } from "./action";
-import reducer from "./reducer";
+import { deleteMachine, getMachines, updateMachines } from "./action";
+import reducer, { initialState } from "./reducer";
 import saga from "./saga";
+import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
 
 const key = getMachinesStore;
 
-export default function Machine() {
+export default function MachineList() {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const machineAddOutput = useSelector((state) => state?.[key]);
-  console.log(machineAddOutput);
+  const machineListData = useSelector((state) => state?.[key]) || initialState;
   const dispatch = useDispatch();
 
-  const [data, setData] = useState(machineList);
+  useEffect(() => {
+    dispatch(getMachines());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.idMachine !== id));
+    dispatch(deleteMachine(id));
+    // eslint-disable-next-line eqeqeq
+    dispatch(
+      updateMachines(
+        // eslint-disable-next-line eqeqeq
+        machineListData?.data.filter((machine) => machine?.idMachine != id)
+      )
+    );
   };
 
   const columns = [
@@ -68,6 +77,14 @@ export default function Machine() {
 
   return (
     <div className="machineList">
+      {(machineListData?.loading ||
+        machineListData?.deleteMachine?.loading) && <Loader />}
+      {(machineListData?.error || machineListData?.deleteMachine?.error) && (
+        <AlertPopup type="error" message="a problem occured" />
+      )}
+      {machineListData?.deleteMachine?.success && (
+        <AlertPopup type="success" message="machine deleted" />
+      )}
       <div className="machineTitleContainer">
         <h1>Machine list</h1>
         <Link to="/machines/add">
@@ -75,7 +92,7 @@ export default function Machine() {
         </Link>
       </div>
       <DataGrid
-        rows={data}
+        rows={machineListData?.data}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row?.idMachine}
