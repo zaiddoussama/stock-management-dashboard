@@ -1,17 +1,17 @@
 import "./productTypeList.css";
-import React, { useEffect, useState } from 'react';
-import { productTypeRows } from "../../dummyData";
+import React, { useEffect } from 'react';
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import { DeleteOutline } from "@material-ui/icons";
 import { getProductTypesStore } from "../../app/applicationStates";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProductTypes, getProductTypes } from "./action";
+import { deleteProductType, deleteProductTypes, getProductTypes, updateProductTypes } from "./action";
 import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import reducer, { initialState } from "./reducer";
 import saga from "./saga";
-import { Alert, CircularProgress, Stack } from "@mui/material";
+import AlertPopup from "../../components/Alert";
+import Loader from "../../components/Loader";
 
 const key = getProductTypesStore;
 
@@ -22,7 +22,6 @@ export default function ProductListType() {
 
     const productTypesListData = useSelector((state) => state?.[key]) || initialState;
     console.log(productTypesListData);
-    console.log("MOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOAAAAAAAAAAAAAAAAAADDDDDDDDDDDDDD");
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,7 +29,13 @@ export default function ProductListType() {
     }, [])
 
     const handleDelete = (id) => {
-        dispatch(deleteProductTypes(id))
+        dispatch(deleteProductType(id));
+
+        dispatch(
+            updateProductTypes(
+                productTypesListData?.data.filter((productType) => productType.idTypeProduit != id)
+            )
+        );
     };
 
     const columns = [
@@ -48,12 +53,12 @@ export default function ProductListType() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/editProducType/" + params.row.id}>
+                        <Link to={"/editProducType/" + params?.row?.idTypeProduit}>
                             <button className="productTypeListEdit">Edit</button>
                         </Link>
                         <DeleteOutline
                             className="productTypeListDelete"
-                            onClick={() => handleDelete(params?.row?.id)}
+                            onClick={() => handleDelete(params?.row?.idTypeProduit)}
                         />
                     </>
                 );
@@ -62,16 +67,19 @@ export default function ProductListType() {
     ];
 
     useEffect(() => {
-        dispatch(getProductTypes())
+        dispatch(getProductTypes());
     }, []);
 
     return (
         <div className="productTypeList">
-            {productTypesListData?.loading && <CircularProgress />}
-            {productTypesListData?.error && (
-                <Stack sx={{ width: "100%" }} spacing={2}>
-                    <Alert severity="error">a problem occured, try again !</Alert>
-                </Stack>
+
+            {(productTypesListData?.loading ||
+                productTypesListData?.deleteProductType?.loading) && <Loader />}
+            {(productTypesListData?.error || productTypesListData?.deleteProductType?.error) && (
+                <AlertPopup type="error" message="a problem occured" />
+            )}
+            {productTypesListData?.deleteProductType?.success && (
+                <AlertPopup type="success" message="product type deleted" />
             )}
 
             <div className="productTypeTitleContainer">

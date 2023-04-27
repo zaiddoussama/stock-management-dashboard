@@ -4,7 +4,8 @@ import {
   DELETE_PRODUCT_TYPE_ERROR,
   GET_PRODUCT_TYPES,
   GET_PRODUCT_TYPES_SUCCESS,
-  GET_PRODUCT_TYPES_ERROR
+  GET_PRODUCT_TYPES_ERROR,
+  UPDATE_PRODUCT_TYPES
 } from './constants';
 
 export function getProductTypes() {
@@ -27,17 +28,17 @@ export function getProductTypesError(error) {
   };
 }
 
-export function deleteProductTypes(id) {
+export function deleteProductType(id) {
   return {
     type: DELETE_PRODUCT_TYPE,
-    id
+    id,
   };
 }
 
-export function deleteProductTypesSuccess(productTypessList) {
+export function deleteProductTypesSuccess(id) {
   return {
     type: DELETE_PRODUCT_TYPE_SUCCESS,
-    productTypessList,
+    id,
   };
 }
 
@@ -45,5 +46,12 @@ export function deleteProductTypesError(error) {
   return {
     type: DELETE_PRODUCT_TYPE_ERROR,
     error,
+  };
+}
+
+export function updateProductTypes(productTypes) {
+  return {
+    type: UPDATE_PRODUCT_TYPES,
+    productTypes,
   };
 }

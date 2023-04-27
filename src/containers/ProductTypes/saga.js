@@ -25,7 +25,7 @@ export function* deleteProductTypeEmitter(action) {
   const requestURL = "v1/typeproduit/delete?idTypeProduit=" + action?.id;
 
   try {
-    const response = yield call(instance, requestURL);
+    const response = yield call(instance.delete, requestURL);
     yield put(deleteProductTypesSuccess(response?.data));
   } catch (err) {
     yield put(deleteProductTypesError(err));
