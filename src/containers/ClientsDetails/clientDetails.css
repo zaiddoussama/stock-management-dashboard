@@ -1,0 +1,158 @@
+.client {
+  flex: 4;
+  padding: 20px;
+}
+
+.clientTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clientAddButton {
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: teal;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+.clientContainer {
+  height: 300px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.clientShow {
+  flex: 1;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.clientUpdate {
+  flex: 2;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  margin-left: 20px;
+}
+
+.clientShowTop {
+  display: flex;
+  align-items: center;
+}
+
+.clientShowImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.clientShowTopTitle {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.clientShowUsername {
+  font-weight: 600;
+}
+
+.clientShowUserTitle {
+  font-weight: 300;
+}
+
+.clientShowBottom {
+  margin-top: 20px;
+  height: 180px;
+  overflow-y: scroll;
+}
+
+.clientShowTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(175, 170, 170);
+}
+
+.clientShowInfo {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px;
+  color: #444;
+}
+
+.clientShowIcon {
+  font-size: 16px !important;
+}
+
+.clientShowInfoTitle {
+  margin-left: 10px;
+}
+
+.clientUpdateTitle {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.clientUpdateForm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.clientUpdateItem {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.clientUpdateItem > label {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.clientUpdateSelect,
+.clientUpdateInput {
+  border: none;
+  width: 250px;
+  height: 30px;
+  border-bottom: 1px solid gray;
+}
+
+.clientUpdateRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.clientUpdateUpload {
+  display: flex;
+  align-items: center;
+}
+
+.clientUpdateImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.clientUpdateIcon {
+  cursor: pointer;
+}
+
+.clientUpdateButton {
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  background-color: darkblue;
+  color: white;
+  font-weight: 600;
+}

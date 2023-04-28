@@ -1,0 +1,31 @@
+.new-program-container {
+  flex: 4;
+  margin-top: 60px;
+  margin-left: 200px;
+  padding: 15px;
+
+}
+
+.new-program-title {
+  padding: 15px;
+  padding-left: 0px;
+}
+
+.new-program-create-button {
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.new-program-select-client-container {
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.new-program-select-ravitailleur-container {
+  padding: 5px;
+}
+
+.new-program-date, .new-program-note {
+  padding-left: 13px;
+  padding-bottom: 8px;
+}
