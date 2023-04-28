@@ -16,16 +16,17 @@ import Machine from "./pages/machine/Machine";
 import MachineDetails from "./pages/MachineDetails/MachineDetails";
 import AddMachine from "./pages/AddMachine/AddMachine";
 import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
+import ProgramWeeklyList from "./pages/ProgramWeeklyList/programWeeklyList";
+import NewProgramWeekly from "./pages/newProgramWeekly/newProgramWeekly";
 
 import history from "./app/history";
 import Login from "./pages/Login/Login";
-import TestContainer from "./containers/TestContainer";
+import AddClient from "./pages/AddClient/AddClient";
+import Clients from "./pages/Clients/Clients";
+import ClientDetails from "./pages/ClientDetails/ClientDetails";
 
 function App() {
 
-  const output = TestContainer();
-  console.log(output)
-  
   return (
     <Router history={history}>
       
@@ -58,6 +59,19 @@ function App() {
           <Route path="/machines">
             <Machine/>
           </Route>
+
+
+          <Route path="/clients/add" exact>
+            <AddClient/>
+          </Route>
+          <Route path="/clients/:idClient" exact>
+            <ClientDetails/>
+          </Route>
+          <Route path="/clients">
+            <Clients/>
+          </Route>
+
+
           <Route path="/products">
             <ProductList />
           </Route>
@@ -78,6 +92,12 @@ function App() {
           </Route>
           <Route path="/editProducType">
             <ProductTypeDetails />
+          </Route>
+          <Route path="/programWeeklyList">
+            <ProgramWeeklyList />
+          </Route>
+          <Route path="/newprogramweekly">
+            <NewProgramWeekly />
           </Route>
         </Switch>
       </div>

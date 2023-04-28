@@ -22,7 +22,7 @@ export default function Topbar() {
           <div className="topbarIconContainer">
             <Settings />
           </div>
-          <Profile /> 
+          {/* <Profile />  */}
         </div>
       </div>
       

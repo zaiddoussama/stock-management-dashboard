@@ -1,33 +1,37 @@
 import produce from 'immer';
-import { GET_MACHINES_SUCCESS, GET_MACHINES, GET_MACHINES_ERROR } from './constants';
+import { UPDATE_MACHINE_SUCCESS, UPDATE_MACHINE, UPDATE_MACHINE_ERROR } from './constants';
 
 // The initial state of the App
 export const initialState = {
   loading: false,
+  success: false,
   error: null,
-  data: [],
+  data: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const reducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case GET_MACHINES:
+      case UPDATE_MACHINE:
         draft.loading = true;
+        draft.success = false;
         draft.error = null;
-        draft.data = [];
+        draft.data = {};
         break;
 
-      case GET_MACHINES_SUCCESS:
-        draft.data = action.todo;
+      case UPDATE_MACHINE_SUCCESS:
+        draft.data = action.machine;
+        draft.success = true;
         draft.loading = false;
         draft.error = null;
         break;
 
-      case GET_MACHINES_ERROR:
+      case UPDATE_MACHINE_ERROR:
         draft.error = action.error;
+        draft.success  = false;
         draft.loading = false;
-        draft.data = [];
+        draft.data = {};
         break;
     }
   });

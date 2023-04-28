@@ -1,19 +1,19 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import instance from "./../../app/request";
-import { getMachinesSuccess, getMachinesError } from "./action";
-import { GET_MACHINES } from "./constants";
+import { updateMachineSuccess, updateMachineError } from "./action";
+import { UPDATE_MACHINE } from "./constants";
 
-export function* getMachinesEmitter(action) {
-  const requestURL = "/todos/1";
+export function* updateMachineEmitter(action) {
+  const requestURL = "v1/machine/update";
   try {
-    const response = yield call(instance, requestURL);
-    yield put(getMachinesSuccess(response?.data));
+    const response = yield call(instance.put, requestURL, action?.machine);
+    yield put(updateMachineSuccess(response?.data));
   } catch (err) {
-    yield put(getMachinesError(err));
+    yield put(updateMachineError(err));
   }
 }
 
 export default function* machineHandler() {
-  yield takeLatest(GET_MACHINES, getMachinesEmitter);
+  yield takeLatest(UPDATE_MACHINE, updateMachineEmitter);
 }
