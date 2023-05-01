@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { DeleteOutline } from "@material-ui/icons";
 import { getProductTypesStore } from "../../app/applicationStates";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProductType, deleteProductTypes, getProductTypes, updateProductTypes } from "./action";
+import { deleteProductType, getProductTypes, updateProductTypes } from "./action";
 import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import reducer, { initialState } from "./reducer";

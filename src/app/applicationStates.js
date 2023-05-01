@@ -9,3 +9,4 @@ export const getProductTypesStore = "getProductTypesStore";
 export const updateClientStore = "updateClientStore";
 export const updateMachineStore = "updateMachineStore";
 export const updateProductTypeStore = "updateProductTypeStore";
+export const getUsersStore = "getUsersStore";
