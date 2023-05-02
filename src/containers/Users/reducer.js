@@ -49,7 +49,7 @@ const reducer = (state = initialState, action) =>
         break;
 
       case UPDATE_USERS:
-        draft.data = action.Users;
+        draft.data = action.users;
         break;
 
       case DELETE_USER:

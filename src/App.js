@@ -24,6 +24,8 @@ import Login from "./pages/Login/Login";
 import AddClient from "./pages/AddClient/AddClient";
 import Clients from "./pages/Clients/Clients";
 import ClientDetails from "./pages/ClientDetails/ClientDetails";
+import NewRavitailleur from "./containers/AddRavitailleur";
+import NewRavitailleurContainer from "./pages/newRavitailleur/newRavitailleur";
 
 function App() {
 
@@ -83,6 +85,9 @@ function App() {
           </Route>
           <Route path="/ravitailleurs">
             <RavitailleurList />
+          </Route>
+          <Route path="/newRavitailleur">
+            <NewRavitailleurContainer />
           </Route>
           <Route path="/productType">
             <ProductTypeList />

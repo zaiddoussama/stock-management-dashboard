@@ -2,17 +2,16 @@ import { useState } from "react";
 import { getUsersStore } from "../../app/applicationStates";
 import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
-import "./newUser.css";
+import "./newRavitailleur.css";
 import reducer from "./reducer";
 import saga from "./saga";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "./action";
+import { addRavitailleur } from "./action";
 import { Alert, CircularProgress, Stack } from "@mui/material";
-
 
 const key = getUsersStore;
 
-export default function NewUser() {
+export default function NewRavitailleur() {
 
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -31,7 +30,7 @@ export default function NewUser() {
     e.preventDefault();
 
     dispatch(
-      addUser({
+      addRavitailleur({
         username: username,
         nom: name,
         prenom: lastName,
@@ -53,11 +52,11 @@ export default function NewUser() {
       )}
       {userAddOutput?.success && (
         <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="success">Admin added successfully !</Alert>
+          <Alert severity="success">Ravitailleur added successfully !</Alert>
         </Stack>
       )}
 
-      <h1 className="newUserTitle">New Admin</h1>
+      <h1 className="newUserTitle">New Ravitailleur</h1>
 
       <form className="newUserForm">
         <div className="newUserItem">

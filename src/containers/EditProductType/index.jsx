@@ -29,15 +29,6 @@ const ProductTypeDetails = () => {
 
   const dispatch = useDispatch();
 
-  const onClick = (event) => {
-    event.preventDefault();
-    dispatch(updateProductType({
-      idTypeProduit: parseInt(window.location.href.split("/").at(-1)),
-      libelleTypeProduit: productType,
-      unite: unit
-    }))
-  };
-
   const productTypeUpdate = useSelector((state) => state?.[updateProductTypeStore]) || initialState;
   const productTypeListData = useSelector((state) => state?.[getProductTypesStore]) || {
     ...initialState,

@@ -1,47 +1,46 @@
-import "./userList.css";
+import "./ravitailleurList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, getUsers } from "./action";
+import { deleteRavitailleur, getRavitailleurs, updateRavitailleurs } from "./action";
 import reducer, { initialState } from "./reducer";
 import saga from "./saga";
-import { getUsersStore } from "../../app/applicationStates";
-import { useEffect } from "react";
-import { updateUsers } from "./action";
-import Loader from "../../components/Loader";
 import AlertPopup from "../../components/Alert";
+import Loader from "../../components/Loader";
+import { getRavitailleursStore } from "../../app/applicationStates";
 
-const key = getUsersStore;
+const key = getRavitailleursStore;
 
-export default function UserList() {
+export default function RavitailleurList() {
 
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const usersListData = useSelector((state) => state?.[key]) || initialState;
-  console.log(usersListData);
+  const ravitailleursListData = useSelector((state) => state?.[key]) || initialState;
+  console.log(ravitailleursListData);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsers())
+    dispatch(getRavitailleurs())
   }, [])
 
   const handleDelete = (username) => {
-    dispatch(deleteUser(username));
+    dispatch(deleteRavitailleur(username));
 
     dispatch(
-      updateUsers(
-        usersListData?.data.filter((user) => user.username != username)
+      updateRavitailleurs(
+        ravitailleursListData?.data.filter((user) => user.username != username)
       )
     );
   };
 
   const columns = [
-    { field: "idFournisseur", headerName: "ID", width: 90 },
+    { field: "idRavitailleur", headerName: "ID", width: 90 },
     {
       field: "nom",
       headerName: "User",
@@ -65,7 +64,7 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.username}>
+            <Link to={"/ravitailleur/" + params.row.username}>
               <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutline
@@ -79,33 +78,33 @@ export default function UserList() {
   ];
 
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getRavitailleurs());
   }, [])
 
   return (
     <div className="userList">
 
-      {(usersListData?.loading ||
-        usersListData?.deleteUser?.loading) && <Loader />}
-      {(usersListData?.error || usersListData?.deleteUser?.error) && (
+      {(ravitailleursListData?.loading ||
+        ravitailleursListData?.deleteRavitailleur?.loading) && <Loader />}
+      {(ravitailleursListData?.error || ravitailleursListData?.deleteRavitailleur?.error) && (
         <AlertPopup type="error" message="a problem occured" />
       )}
-      {usersListData?.deleteUser?.success && (
+      {ravitailleursListData?.deleteRavitailleur?.success && (
         <AlertPopup type="success" message="user deleted" />
       )}
 
       <div className="userTitleContainer">
-        <h1>Admins List</h1>
-        <Link to="/newUser">
+        <h1>Ravitailleur List</h1>
+        <Link to="/newRavitailleur">
           <button className="userAddButton">Add</button>
         </Link>
       </div>
 
       <DataGrid
-        rows={usersListData?.data}
+        rows={ravitailleursListData?.data}
         disableSelectionOnClick
         columns={columns}
-        getRowId={(row) => row?.idFournisseur}
+        getRowId={(row) => row?.idRavitailleur}
         pageSize={8}
         checkboxSelection
       />

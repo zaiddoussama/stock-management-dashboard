@@ -10,3 +10,5 @@ export const updateClientStore = "updateClientStore";
 export const updateMachineStore = "updateMachineStore";
 export const updateProductTypeStore = "updateProductTypeStore";
 export const getUsersStore = "getUsersStore";
+export const getRavitailleursStore = "getRavitailleursStore";
+export const updateUserStore = "updateUserStore";
