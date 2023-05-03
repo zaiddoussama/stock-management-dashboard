@@ -15,7 +15,7 @@ export function* getMachinesEmitter() {
 }
 
 export function* deletetMachineEmitter(action) {
-  const requestURL = "v1/machine/delete/" + action?.id;
+  const requestURL = "v1/machine/delete?id=" + action?.id;
   try {
     const response = yield call(instance.delete, requestURL);
     yield put(deleteMachineSuccess(response?.data));

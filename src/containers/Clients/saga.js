@@ -15,7 +15,7 @@ export function* getClientsEmitter() {
 }
 
 export function* deletetClientEmitter(action) {
-  const requestURL = "v1/client/delete/" + action?.id;
+  const requestURL = "v1/client/delete?id=" + action?.id;
   try {
     const response = yield call(instance.post, requestURL);
     yield put(deleteClientSuccess(response?.data));
