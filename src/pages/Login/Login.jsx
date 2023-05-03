@@ -7,6 +7,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import './Login.css';
 
 function Login({ config }) {
+
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 

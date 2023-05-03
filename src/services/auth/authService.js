@@ -47,10 +47,17 @@ export function logIn(payload, config, setLoading, setError) {
     fetch(baseUrl + "/token", requestOptions)
       .then((response) => response.text())
       .then((data) => {
-        setAccessToken(JSON.parse(data)?.accessToken);
-        setRefreshToken(JSON.parse(data)?.refreshToken);
-        setLoading(false);
-        window.location.href = "/";
+        const decode = JSON.parse(
+          atob(JSON.parse(data)?.accessToken.split(".")[1])
+        );
+        if (decode?.scope === "ADMIN") {
+          setAccessToken(JSON.parse(data)?.accessToken);
+          setRefreshToken(JSON.parse(data)?.refreshToken);
+          setLoading(false);
+          window.location.href = "/";
+        } else {
+          setError("Not allowed to enter application");
+        }
       })
       .catch((error) => {
         console.error("Error authenticating user:", error);
@@ -82,8 +89,14 @@ export const acquireSilentToken = (config) => {
   fetch(baseUrl + "/refreshToken", requestOptions)
     .then((response) => response.text())
     .then((data) => {
-      setAccessToken(JSON.parse(data)?.accessToken);
-      setRefreshToken(JSON.parse(data)?.refreshToken);
+      const decode = JSON.parse(
+        atob(JSON.parse(data)?.accessToken.split(".")[1])
+      );
+
+      if (decode?.scope === "ADMIN") {
+        setAccessToken(JSON.parse(data)?.accessToken);
+        setRefreshToken(JSON.parse(data)?.refreshToken);
+      }
     })
     .catch((error) => {
       console.error("Error acquiring new token:", error);
