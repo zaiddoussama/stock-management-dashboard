@@ -14,3 +14,6 @@ export const getRavitailleursStore = "getRavitailleursStore";
 export const updateUserStore = "updateUserStore";
 export const updateRavitailleurStore = "updateRavitailleurStore";
 
+export const ravListStore = "ravListStore";
+export const programmeListStore = "programmeListStore";
+export const historyStore = "historyStore";
