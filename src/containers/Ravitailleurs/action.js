@@ -28,10 +28,10 @@ export function getRavitailleursError(error) {
   };
 }
 
-export function deleteRavitailleur(id) {
+export function deleteRavitailleur(username) {
   return {
     type: DELETE_RAVITAILLEUR,
-    id,
+    username,
   };
 }
 
