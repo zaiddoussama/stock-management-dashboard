@@ -1,0 +1,3 @@
+export const ADD_PRODUCT_TYPE = 'admin/App/ADD_PRODUCT_TYPE';
+export const ADD_PRODUCT_TYPE_SUCCESS = 'admin/App/ADD_PRODUCT_TYPE_SUCCESS';
+export const ADD_PRODUCT_TYPE_ERROR = 'admin/App//ADD_PRODUCT_TYPE_ERROR';

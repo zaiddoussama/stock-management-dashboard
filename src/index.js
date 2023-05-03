@@ -18,7 +18,7 @@ ReactDOM.render(
       <AuthProvider config={config}>
         <App />
       </AuthProvider>
-    </Provider>
+   </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
