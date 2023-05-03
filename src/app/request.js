@@ -8,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    if(isTokenExpired(getAccessToken())){
+    if (isTokenExpired(getAccessToken())) {
       acquireSilentToken({});
     }
     config.headers["Authorization"] = `Bearer ${getAccessToken()}`;

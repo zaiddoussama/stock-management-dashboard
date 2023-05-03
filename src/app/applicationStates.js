@@ -6,3 +6,6 @@ export const addClientStore = "addClientStore";
 export const getClientsStore = "getClientsStore";
 export const updateClientStore = "updateClientStore";
 export const updateMachineStore = "updateMachineStore";
+export const ravListStore = "ravListStore";
+export const programmeListStore = "programmeListStore";
+export const historyStore = "historyStore";
