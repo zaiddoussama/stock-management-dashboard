@@ -26,6 +26,7 @@ import Clients from "./pages/Clients/Clients";
 import ClientDetails from "./pages/ClientDetails/ClientDetails";
 import NewRavitailleur from "./containers/AddRavitailleur";
 import NewRavitailleurContainer from "./pages/newRavitailleur/newRavitailleur";
+import Ravitailleur from "./containers/EditRavitailleur";
 
 function App() {
 
@@ -88,6 +89,9 @@ function App() {
           </Route>
           <Route path="/newRavitailleur">
             <NewRavitailleurContainer />
+          </Route>
+          <Route path="/ravitailleur/:ravitailleurId">
+            <Ravitailleur />
           </Route>
           <Route path="/productType">
             <ProductTypeList />
