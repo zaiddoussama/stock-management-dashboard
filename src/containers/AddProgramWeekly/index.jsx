@@ -6,8 +6,31 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Button, Checkbox, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select, TextField } from "@mui/material";
 import { useStyles } from "../../utils";
+import reducer, { initialState } from "./reducer";
+import saga from "./saga";
+import { useEffect, useState } from "react";
+import Loader from "../../components/Loader";
+import AlertPopup from "../../components/Alert";
+import { addProductTypeStore } from "../../app/applicationStates";
+import { useInjectReducer } from "../../app/injectReducer";
+import { useInjectSaga } from "../../app/injectSaga";
+import { useDispatch, useSelector } from "react-redux";
+
+const key = addProductTypeStore;
 
 export default function NewProgramWeekly() {
+
+    useInjectReducer({ key, reducer });
+    useInjectSaga({ key, saga });
+
+    const [startDate, setStartDate] = useState("");
+    const [clientProgram, setClientProgram] = useState("");
+    const [ravitailleurProgram, setRavitailleurProgram] = useState("");
+    const [note, setNote] = useState("");
+
+    const programWeeklyAddOutput = useSelector((state) => state?.[key]) || initialState;
+
+    const dispatch = useDispatch();
 
     const [ravitailleur, setravitailleur] = React.useState('');
 
@@ -89,12 +112,12 @@ export default function NewProgramWeekly() {
                                 primary="Select All"
                             />
                         </MenuItem>
-                        {options.map((option) => (
-                            <MenuItem key={option} value={option}>
+                        {programWeeklyAddOutput?.clients?.data?.map((client) => (
+                            <MenuItem key={client} value={client}>
                                 <ListItemIcon>
-                                    <Checkbox checked={selected.indexOf(option) > -1} />
+                                    <Checkbox checked={selected.indexOf(client) > -1} />
                                 </ListItemIcon>
-                                <ListItemText primary={option} />
+                                <ListItemText primary={client} />
                             </MenuItem>
                         ))}
 
