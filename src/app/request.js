@@ -2,7 +2,7 @@ import axios from "axios";
 import { acquireSilentToken, getAccessToken } from "../services/auth/authService";
 
 const instance = axios.create({
-  baseURL: "http://51.75.124.137:8081/api" || "http://localhost:1337/api",
+  baseURL: process.env.RREACT_APP_BASE_URL || "http://51.75.124.137:8081/api",
   timeout: parseInt(process.env.REACT_APP_TIMEOUT || 5000),
 });
 

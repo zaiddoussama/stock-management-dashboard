@@ -22,7 +22,7 @@ export default function ProgramCard({ item }) {
 	return (
 		<Grid item xs={4} key={item.idProgrammeWeekly}>
 			<Link
-				to={"/ravitailleur/programme/suivie/" + item.idProgrammeWeekly}
+				to={"/ravitailleurProg/programme/suivie/" + item.idProgrammeWeekly}
 				style={{ textDecoration: "none" }}>
 				<Item>
 					<CalendarTodayIcon sx={{ marginRight: "10px" }} />

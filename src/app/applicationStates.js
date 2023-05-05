@@ -4,8 +4,17 @@ export const getMachinesStore = "getMachinesStore";
 export const updateMachinesStore = "updateMachinesStore";
 export const addClientStore = "addClientStore";
 export const getClientsStore = "getClientsStore";
+export const addProductTypeStore = "addProductTypeStore";
+export const getProductTypesStore = "getProductTypesStore";
 export const updateClientStore = "updateClientStore";
 export const updateMachineStore = "updateMachineStore";
 export const ravListStore = "ravListStore";
 export const programmeListStore = "programmeListStore";
 export const historyStore = "historyStore";
+export const updateProductTypeStore = "updateProductTypeStore";
+export const getUsersStore = "getUsersStore";
+export const getRavitailleursStore = "getRavitailleursStore";
+export const updateUserStore = "updateUserStore";
+export const updateRavitailleurStore = "updateRavitailleurStore";
+export const addProgramWeeklyStore = "addProgramWeeklyStore";
+

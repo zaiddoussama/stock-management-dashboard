@@ -21,7 +21,9 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function RavCard({ item }) {
 	return (
 		<Grid item xs={4} key={item.idRavitailleur}>
-			<Link to={"/ravitailleur/suivie/" + item.idRavitailleur} style={{ textDecoration: "none" }}>
+			<Link
+				to={"/ravitailleurSuivie/suivie/" + item.idRavitailleur}
+				style={{ textDecoration: "none" }}>
 				<Item>
 					<Avatar sx={{ bgcolor: "teal", marginRight: "10px" }}>
 						{item.username.charAt(0).toUpperCase()}

@@ -28,6 +28,9 @@ import Suivie from "./pages/Suivie/Suivie";
 import SuivieRavPage from "./pages/Suivie/SuivieRavPage";
 import SuivieProgrammePage from "./pages/Suivie/SuivieProgrammePage";
 import SuivieHistory from "./pages/Suivie/SuivieHistory";
+import NewRavitailleur from "./containers/AddRavitailleur";
+import NewRavitailleurContainer from "./pages/newRavitailleur/newRavitailleur";
+import Ravitailleur from "./containers/EditRavitailleur";
 
 function App() {
 
@@ -88,6 +91,12 @@ function App() {
           <Route path="/ravitailleurs">
             <RavitailleurList />
           </Route>
+          <Route path="/newRavitailleur">
+            <NewRavitailleurContainer />
+          </Route>
+          <Route path="/ravitailleur/:ravitailleurId">
+            <Ravitailleur />
+          </Route>
           <Route path="/productType">
             <ProductTypeList />
           </Route>
@@ -106,10 +115,10 @@ function App() {
           <Route path="/suivie">
             <Suivie />
           </Route>
-          <Route path="/ravitailleur/suivie/:id">
+          <Route path="/ravitailleurSuivie/suivie/:id">
             <SuivieProgrammePage />
           </Route>
-          <Route path="/ravitailleur/programme/suivie/:idProgramme">
+          <Route path="/ravitailleurProg/programme/suivie/:idProgramme">
             <SuivieHistory />
           </Route>
         </Switch>
