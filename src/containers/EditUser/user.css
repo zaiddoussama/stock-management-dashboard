@@ -3,11 +3,11 @@
   padding: 20px;
 }
 
-.userTitleContainer {
+/* .userTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+} */
 
 .userAddButton {
   width: 80px;

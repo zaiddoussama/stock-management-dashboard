@@ -77,7 +77,7 @@ import { updateUser } from "./action";
       {userUpdate?.success && <AlertPopup type="success" message="Admin updated" />}
       {userUpdate?.error && <AlertPopup type="error" message="a problem occured" />}
 
-        <div className="userTitleContainer">
+        <div>
           <h1 className="userTitle">Edit Admin</h1>
           <Link to="/newUser">
             <button className="userAddButton">Create</button>

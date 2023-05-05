@@ -28,8 +28,8 @@ const [showPopup, setShowPopup] = useState(false);
         onClick={handlePopup}
       />
       <div className={`profileContainer ${!showPopup && 'hideProfile'}`}>
-        {items.map((item) => (
-          <div className="profileItem" onClick={item?.onClick}>{item?.label}</div>
+        {items.map((item, index) => (
+          <div className="profileItem" key={index} onClick={item?.onClick}>{item?.label}</div>
         ))}
       </div>
     </div>

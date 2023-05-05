@@ -82,7 +82,7 @@ export default function ProductListType() {
                 <AlertPopup type="success" message="product type deleted" />
             )}
 
-            <div className="productTypeTitleContainer">
+            <div>
                 <h1>Product type list</h1>
                 <Link to="/newproductType">
                     <button className="productTypeAddButton">Add</button>

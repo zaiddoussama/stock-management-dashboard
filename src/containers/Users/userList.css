@@ -30,17 +30,10 @@
     cursor: pointer;
 }
 
-.userTitleContainer {
+.userTitleContainer11{
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-}
-
-.userTitleContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0 10px;
 }
 

@@ -61,7 +61,7 @@ import { updateRavitailleur} from "./action";
       {ravitailleurUpdate?.success && <AlertPopup type="success" message="Admin updated" />}
       {ravitailleurUpdate?.error && <AlertPopup type="error" message="a problem occured" />}
 
-        <div className="userTitleContainer">
+        <div>
           <h1 className="userTitle">Edit Ravitailleur</h1>
           <Link to="/newRavitailleur">
             <button className="userAddButton">Create</button>
