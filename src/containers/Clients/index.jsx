@@ -88,7 +88,7 @@ export default function ClientListContainer() {
         <AlertPopup type="error" message="a problem occured" />
       )}
 
-      <div className="clientTitleContainer">
+      <div>
         <h1>Client list</h1>
         <Link to="/clients/add">
           <button className="clientAddButton">Add new client</button>

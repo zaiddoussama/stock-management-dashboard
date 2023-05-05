@@ -2,7 +2,7 @@ import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import "./App.css";
 import Home from "./pages/home/Home";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
@@ -24,6 +24,10 @@ import Login from "./pages/Login/Login";
 import AddClient from "./pages/AddClient/AddClient";
 import Clients from "./pages/Clients/Clients";
 import ClientDetails from "./pages/ClientDetails/ClientDetails";
+import Suivie from "./pages/Suivie/Suivie";
+import SuivieRavPage from "./pages/Suivie/SuivieRavPage";
+import SuivieProgrammePage from "./pages/Suivie/SuivieProgrammePage";
+import SuivieHistory from "./pages/Suivie/SuivieHistory";
 import NewRavitailleur from "./containers/AddRavitailleur";
 import NewRavitailleurContainer from "./pages/newRavitailleur/newRavitailleur";
 import Ravitailleur from "./containers/EditRavitailleur";
@@ -32,7 +36,7 @@ function App() {
 
   return (
     <Router history={history}>
-      
+
       <Topbar />
       <div className="container">
         <Sidebar />
@@ -41,7 +45,7 @@ function App() {
             <Home />
           </Route>
           <Route exact path="/login">
-            <Login/>
+            <Login />
           </Route>
           <Route path="/users">
             <UserList />
@@ -54,24 +58,24 @@ function App() {
           </Route>
 
           <Route path="/machines/add" exact>
-            <AddMachine/>
+            <AddMachine />
           </Route>
           <Route path="/machines/:idMachine" exact>
-            <MachineDetails/>
+            <MachineDetails />
           </Route>
           <Route path="/machines">
-            <Machine/>
+            <Machine />
           </Route>
 
 
           <Route path="/clients/add" exact>
-            <AddClient/>
+            <AddClient />
           </Route>
           <Route path="/clients/:idClient" exact>
-            <ClientDetails/>
+            <ClientDetails />
           </Route>
           <Route path="/clients">
-            <Clients/>
+            <Clients />
           </Route>
 
 
@@ -107,6 +111,15 @@ function App() {
           </Route>
           <Route path="/newprogramweekly">
             <NewProgramWeekly />
+          </Route>
+          <Route path="/suivie">
+            <Suivie />
+          </Route>
+          <Route path="/ravitailleurSuivie/suivie/:id">
+            <SuivieProgrammePage />
+          </Route>
+          <Route path="/ravitailleurProg/programme/suivie/:idProgramme">
+            <SuivieHistory />
           </Route>
         </Switch>
       </div>

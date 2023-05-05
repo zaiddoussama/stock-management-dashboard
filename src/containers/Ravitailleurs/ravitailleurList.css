@@ -30,12 +30,12 @@
       cursor: pointer;
   }
 
-.userTitleContainer {
+/* .userTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
-}
+} */
 
 .userAddButton {
   width: 150px;

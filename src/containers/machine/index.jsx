@@ -85,7 +85,7 @@ export default function MachineList() {
       {machineListData?.deleteMachine?.success && (
         <AlertPopup type="success" message="machine deleted" />
       )}
-      <div className="machineTitleContainer">
+      <div>
         <h1>Machine list</h1>
         <Link to="/machines/add">
           <button className="machineAddButton">Add new machine</button>
