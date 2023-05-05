@@ -37,6 +37,6 @@ export function* getAvailableClientsEmitter() {
 
 export default function* handler() {
   yield takeLatest(ADD_PROGRAM_WEEKLY, addProgramWeeklyEmitter);
-  yield takeLatest(GET_AVAILABLE_CLIENTS, getAvailableRavitailleursEmitter);
-  yield takeLatest(GET_AVAILABLE_RAVITAILLEURS, getAvailableClientsEmitter);
+  yield takeLatest(GET_AVAILABLE_CLIENTS, getAvailableClientsEmitter);
+  yield takeLatest(GET_AVAILABLE_RAVITAILLEURS, getAvailableRavitailleursEmitter);
 }
