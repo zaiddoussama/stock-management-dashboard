@@ -105,16 +105,6 @@ import { updateRavitailleur} from "./action";
             <form className="userUpdateForm">
               <div className="userUpdateLeft">
                 <div className="userUpdateItem">
-                  <label>Username</label>
-                  <input
-                    type="text"
-                    placeholder="username"
-                    className="userUpdateInput"
-                    value={username}
-                    onChange={(e) => setusername(e.target.value)}
-                  />
-                </div>
-                <div className="userUpdateItem">
                   <label>Nom</label>
                   <input
                     type="text"
