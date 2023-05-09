@@ -29,6 +29,9 @@ export default function NewProgramWeekly() {
     const [ravitailleurProgram, setRavitailleurProgram] = useState("");
     const [note, setNote] = useState("");
 
+    const [dateError, setDateError] = useState(true);
+    const [ravitailleurError, setRavitailleurError] = useState(true);
+
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const programWeeklyAddOutput = useSelector((state) => state?.[key]) || initialState;
@@ -40,6 +43,11 @@ export default function NewProgramWeekly() {
     const clientsLengthList = programWeeklyAddOutput?.clients?.data?.length;
 
     const handleDateChange = (date) => {
+        if(!date) {
+            setDateError(true);
+        } else {
+            setDateError(false);
+        }
         setStartDate(date);
     };
 
@@ -54,16 +62,19 @@ export default function NewProgramWeekly() {
 
     const onCreateButtonClick = (event) => {
         event.preventDefault();
-        dispatch(
-            addProgramWeekly({
-                date: startDate,
-                description: note,
-                username: ravitailleurProgram,
-                clients: clientsProgram.map((id) => {
-                    return { idClient: id };
-                }),
-            })
-        );
+        if(!dateError && !ravitailleurError) {
+            dispatch(
+                addProgramWeekly({
+                    date: startDate,
+                    description: note,
+                    username: ravitailleurProgram,
+                    clients: clientsProgram.map((id) => {
+                        return { idClient: id };
+                    }),
+                })
+            );
+        }
+        
         setShowSuccessAlert(true);
     };
 
@@ -109,7 +120,8 @@ export default function NewProgramWeekly() {
                         <DatePicker
                             label="Select program date"
                             value={startDate}
-                            onChange={handleDateChange} />
+                            onChange={handleDateChange}
+                            error={dateError} />
                     </DemoContainer>
                 </LocalizationProvider>
             </div>
@@ -147,7 +159,10 @@ export default function NewProgramWeekly() {
                         value={ravitailleurProgram}
                         label="Ravitailleur"
                         fullWidth
-                        onChange={(e) => setRavitailleurProgram(e.target.value)}
+                        onChange={(e) => {
+                            setRavitailleurProgram(e.target.value);
+                            setRavitailleurError(e.target.value === "");
+                        }}
                     >
                         <MenuItem value="">
                             <em>None</em>
@@ -180,6 +195,7 @@ export default function NewProgramWeekly() {
                     color="primary"
                     type="submit"
                     onClick={onCreateButtonClick}
+                    disabled={dateError || ravitailleurError}
                 >
                     Create
                 </Button>
