@@ -63,13 +63,19 @@ export default function ProgramWeeklyList() {
             valueGetter: (params) => params.row.ravitailleur.username,
         },
         {
+            field: "description",
+            headerName: "description",
+            width: 200,
+            valueGetter: (params) => params.row.description,
+        },
+        {
             field: "action",
             headerName: "Action",
             width: 150,
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/editProgramWeekly/" + params.row.idProgrammeWeekly}>
+                        <Link to={"/editProgramWeekly/" + params.row.ravitailleur.idRavitailleur}>
                             <button className="programWeeklyListEdit">Edit</button>
                         </Link>
                         <DeleteOutline

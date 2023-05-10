@@ -31,6 +31,7 @@ import SuivieHistory from "./pages/Suivie/SuivieHistory";
 import NewRavitailleur from "./containers/AddRavitailleur";
 import NewRavitailleurContainer from "./pages/newRavitailleur/newRavitailleur";
 import Ravitailleur from "./containers/EditRavitailleur";
+import EditProgramWeekly from "./containers/EditProgramWeekly";
 
 function App() {
 
@@ -111,6 +112,9 @@ function App() {
           </Route>
           <Route path="/newprogramweekly">
             <NewProgramWeekly />
+          </Route>
+          <Route path="/editProgramWeekly/:id">
+            <EditProgramWeekly />
           </Route>
           <Route path="/suivie">
             <Suivie />
