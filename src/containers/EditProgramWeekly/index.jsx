@@ -32,7 +32,7 @@ export default function EditProgramWeekly() {
 
     const [startDate, setStartDate] = useState(null);
     const [clientsProgram, setClientsProgram] = useState([]);
-    const [ravitailleurProgram, setRavitailleurProgram] = useState([]);
+    const [ravitailleurProgram, setRavitailleurProgram] = useState("");
     const [note, setNote] = useState("");
 
     const dispatch = useDispatch();
@@ -78,17 +78,12 @@ export default function EditProgramWeekly() {
     }, []);
 
     useEffect(() => {
-        setStartDate(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.dateDebutProgramme || null);
-        setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.description || []);
+        // setStartDate(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.dateDebutProgramme || new Date());
+        setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.description || []);
+        setRavitailleurProgram(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
     }, [programWeeklyUpdateOutput?.currentProgramWeekly]);
 
-    console.log("begin programWeeklyUpdateOutput?.currentProgramWeekly?.data");
-    console.log(programWeeklyUpdateOutput?.currentProgramWeekly?.data);
-    console.log("end programWeeklyUpdateOutput?.currentProgramWeekly?.data");
-
-    console.log("begin programWeeklyUpdateOutput?.currentProgramWeekly");
-    console.log(programWeeklyUpdateOutput?.currentProgramWeekly);
-    console.log("end programWeeklyUpdateOutput?.currentProgramWeekly");
+    console.log(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
 
     return (
 
@@ -151,6 +146,7 @@ export default function EditProgramWeekly() {
                         id="demo-simple-select-filled"
                         value={ravitailleurProgram}
                         label="Ravitailleur"
+                        displayEmpty
                         fullWidth
                         onChange={(e) => {
                             setRavitailleurProgram(e.target.value);
