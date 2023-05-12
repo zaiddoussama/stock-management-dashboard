@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getUsersStore } from "../../app/applicationStates";
+import { addRavitailleurStore } from "../../app/applicationStates";
 import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import "./newRavitailleur.css";
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRavitailleur } from "./action";
 import { Alert, CircularProgress, Stack } from "@mui/material";
 
-const key = getUsersStore;
+const key = addRavitailleurStore;
 
 export default function NewRavitailleur() {
 

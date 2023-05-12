@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getUsersStore } from "../../app/applicationStates";
+import { addUsersStore } from "../../app/applicationStates";
 import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import "./newUser.css";
@@ -10,7 +10,7 @@ import { addUser } from "./action";
 import { Alert, CircularProgress, Stack } from "@mui/material";
 
 
-const key = getUsersStore;
+const key = addUsersStore;
 
 export default function NewUser() {
 
