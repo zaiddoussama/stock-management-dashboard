@@ -102,7 +102,6 @@ export default function RavitailleurList() {
 				disableSelectionOnClick
 				columns={columns}
 				getRowId={row => row?.idRavitailleur}
-				pageSize={8}
 				checkboxSelection
 			/>
 		</div>

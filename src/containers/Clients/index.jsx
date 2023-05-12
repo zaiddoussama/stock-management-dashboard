@@ -99,7 +99,6 @@ export default function ClientListContainer() {
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row?.idClient}
-        pageSize={8}
         checkboxSelection
       />
     </div>

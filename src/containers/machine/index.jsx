@@ -96,7 +96,6 @@ export default function MachineList() {
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row?.idMachine}
-        pageSize={8}
         checkboxSelection
       />
     </div>

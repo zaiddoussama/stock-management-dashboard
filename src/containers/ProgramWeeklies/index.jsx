@@ -116,7 +116,6 @@ export default function ProgramWeeklyList() {
                 disableSelectionOnClick
                 columns={columns}
                 getRowId={(row) => row?.idProgrammeWeekly}
-                pageSize={8}
                 checkboxSelection
             />
         </div>

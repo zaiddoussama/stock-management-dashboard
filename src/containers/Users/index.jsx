@@ -97,7 +97,6 @@ export default function UserList() {
 				disableSelectionOnClick
 				columns={columns}
 				getRowId={row => row?.idFournisseur}
-				pageSize={10}
 				checkboxSelection
 			/>
 		</div>
