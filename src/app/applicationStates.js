@@ -13,6 +13,7 @@ export const programmeListStore = "programmeListStore";
 export const historyStore = "historyStore";
 export const updateProductTypeStore = "updateProductTypeStore";
 export const getUsersStore = "getUsersStore";
+export const getUserStore = "getUserStore";
 export const addUsersStore = "addUsersStore";
 export const getRavitailleursStore = "getRavitailleursStore";
 export const addRavitailleurStore = "addRavitailleurStore";

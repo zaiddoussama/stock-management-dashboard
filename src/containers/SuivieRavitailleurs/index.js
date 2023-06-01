@@ -25,13 +25,7 @@ function RavListContainer() {
 
   useEffect(() => {
     dispatch(getRavList());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-
-  console.log(ravs);
-  console.log("This is output");
-  console.log("-----------------------------------------------------------");
 
   return (
     <Box>

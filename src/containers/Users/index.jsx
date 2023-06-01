@@ -42,6 +42,11 @@ export default function UserList() {
 			headerName: "User",
 			width: 200,
 		},
+		{
+			field: "prenom",
+			headerName: "Firstname",
+			width: 160,
+		},
 		{ field: "email", headerName: "Email", width: 200 },
 		{
 			field: "telephone",
@@ -60,7 +65,7 @@ export default function UserList() {
 			renderCell: params => {
 				return (
 					<>
-						<Link to={"/user/" + params.row.username}>
+						<Link to={"/user/" + params.row.idFournisseur}>
 							<button className="userListEdit">Edit</button>
 						</Link>
 						<DeleteOutline
@@ -98,6 +103,7 @@ export default function UserList() {
 				columns={columns}
 				getRowId={row => row?.idFournisseur}
 				checkboxSelection
+				autoHeight
 			/>
 		</div>
 	);

@@ -2,7 +2,7 @@ import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import "./App.css";
 import Home from "./pages/home/Home";
-import { Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Switch, Route } from "react-router-dom";
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
@@ -37,95 +37,94 @@ function App() {
 
   return (
     <Router history={history}>
-
       <Topbar />
       <div className="container">
         <Sidebar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
+        <Routes>
+          <Route exact path="/" element={<Home />}>
+
           </Route>
-          <Route exact path="/login">
-            <Login />
+          <Route exact path="/login" element={<Login />}>
+            {/* <Login /> */}
           </Route>
-          <Route path="/users">
-            <UserList />
+          <Route path="/users" element={<UserList />}>
+            {/* <UserList /> */}
           </Route>
-          <Route path="/user/:userId">
-            <User />
+          <Route path="/user/:userId" element={<User />}>
+            {/* <User /> */}
           </Route>
-          <Route path="/newUser">
-            <NewUser />
+          <Route path="/newUser" element={<NewUser />}>
+            {/* <NewUser /> */}
           </Route>
 
-          <Route path="/machines/add" exact>
-            <AddMachine />
+          <Route path="/machines/add" exact element={<AddMachine />}>
+            {/* <AddMachine /> */}
           </Route>
-          <Route path="/machines/:idMachine" exact>
-            <MachineDetails />
+          <Route path="/machines/:idMachine" exact element={<MachineDetails />}>
+            {/* <MachineDetails /> */}
           </Route>
-          <Route path="/machines">
-            <Machine />
-          </Route>
-
-
-          <Route path="/clients/add" exact>
-            <AddClient />
-          </Route>
-          <Route path="/clients/:idClient" exact>
-            <ClientDetails />
-          </Route>
-          <Route path="/clients">
-            <Clients />
+          <Route path="/machines" element={<Machine />}>
+            {/* <Machine /> */}
           </Route>
 
 
-          <Route path="/products">
-            <ProductList />
+          <Route path="/clients/add" exact element={<AddClient />}>
+            {/* <AddClient /> */}
           </Route>
-          <Route path="/product/:productId">
-            <Product />
+          <Route path="/clients/:idClient" exact element={<ClientDetails />}>
+            {/* <ClientDetails /> */}
           </Route>
-          <Route path="/newproduct">
-            <NewProduct />
+          <Route path="/clients" element={<Clients />}>
+            {/* <Clients /> */}
           </Route>
-          <Route path="/ravitailleurs">
-            <RavitailleurList />
+
+
+          <Route path="/products" element={<ProductList />}>
+            {/* <ProductList /> */}
           </Route>
-          <Route path="/newRavitailleur">
-            <NewRavitailleurContainer />
+          <Route path="/product/:productId" element={<Product />}>
+            {/* <Product /> */}
           </Route>
-          <Route path="/ravitailleur/:ravitailleurId">
-            <Ravitailleur />
+          <Route path="/newproduct" element={<NewProduct />}>
+            {/* <NewProduct /> */}
           </Route>
-          <Route path="/productType">
-            <ProductTypeList />
+          <Route path="/ravitailleurs" element={<RavitailleurList />}>
+            {/* <RavitailleurList /> */}
           </Route>
-          <Route path="/newproductType">
-            <NewProductType />
+          <Route path="/newRavitailleur" element={<NewRavitailleurContainer />}>
+            {/* <NewRavitailleurContainer /> */}
           </Route>
-          <Route path="/editProducType">
-            <ProductTypeDetails />
+          <Route path="/ravitailleur/:ravitailleurId" element={<Ravitailleur />}>
+            {/* <Ravitailleur /> */}
           </Route>
-          <Route path="/programWeeklyList">
-            <ProgramWeeklyList />
+          <Route path="/productType" element={<ProductTypeList />}>
+            {/* <ProductTypeList /> */}
           </Route>
-          <Route path="/newprogramweekly">
-            <NewProgramWeekly />
+          <Route path="/newproductType" element={<NewProductType />}>
+            {/* <NewProductType /> */}
           </Route>
-          <Route path="/editProgramWeekly/:id">
-            <EditProgramWeekly />
+          <Route path="/editProducType/:id" element={<ProductTypeDetails />}>
+            {/* <ProductTypeDetails /> */}
           </Route>
-          <Route path="/suivie">
-            <Suivie />
+          <Route path="/programWeeklyList" element={<ProgramWeeklyList />}>
+            {/* <ProgramWeeklyList /> */}
           </Route>
-          <Route path="/ravitailleurSuivie/suivie/:id">
-            <SuivieProgrammePage />
+          <Route path="/newprogramweekly" element={<NewProgramWeekly />}>
+            {/* <NewProgramWeekly /> */}
           </Route>
-          <Route path="/ravitailleurProg/programme/suivie/:idProgramme">
-            <SuivieHistory />
+          <Route path="/editProgramWeekly/:id" element={<EditProgramWeekly />}>
+            {/* <EditProgramWeekly /> */}
           </Route>
-        </Switch>
+          <Route path="/suivie" element={<Suivie />}>
+            {/* <Suivie /> */}
+          </Route>
+          <Route path="/ravitailleurSuivie/suivie/:id" element={<SuivieProgrammePage />}>
+            {/* <SuivieProgrammePage /> */}
+          </Route>
+          <Route path="/ravitailleurProg/programme/suivie/:idProgramme" element={<SuivieHistory />}>
+            {/* <SuivieHistory /> */}
+          </Route>
+        </Routes>
       </div>
     </Router>
   );
