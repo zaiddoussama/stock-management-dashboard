@@ -19,7 +19,6 @@ import ProductTypeDetails from "./pages/productTypeDetails/productTypeDetails";
 import ProgramWeeklyList from "./pages/ProgramWeeklyList/programWeeklyList";
 import NewProgramWeekly from "./pages/newProgramWeekly/newProgramWeekly";
 
-import history from "./app/history";
 import Login from "./pages/Login/Login";
 import AddClient from "./pages/AddClient/AddClient";
 import Clients from "./pages/Clients/Clients";
@@ -32,6 +31,7 @@ import NewRavitailleur from "./containers/AddRavitailleur";
 import NewRavitailleurContainer from "./pages/newRavitailleur/newRavitailleur";
 import Ravitailleur from "./containers/EditRavitailleur";
 import EditProgramWeekly from "./containers/EditProgramWeekly";
+import history from "./app/history";
 
 function App() {
 

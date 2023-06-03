@@ -4,9 +4,9 @@ import {
     PermIdentity,
     PhoneAndroid,
   } from "@material-ui/icons";
-  import { Link } from "react-router-dom";
+  import { Link, useNavigate, useParams } from "react-router-dom";
   import "./user.css";
-import { getRavitailleursStore, updateRavitailleurStore } from "../../app/applicationStates";
+import { updateRavitailleurStore } from "../../app/applicationStates";
 import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,8 +14,8 @@ import reducer, { initialState } from "./reducer";
 import saga from "./saga";
 import Loader from "../../components/Loader";
 import AlertPopup from "../../components/Alert";
-import { useState } from "react";
-import { updateRavitailleur} from "./action";
+import { useEffect, useState } from "react";
+import { getRavitailleur, updateRavitailleur} from "./action";
 
   const key = updateRavitailleurStore;
 
@@ -25,41 +25,54 @@ import { updateRavitailleur} from "./action";
     useInjectSaga({ key, saga });
   
     const dispatch = useDispatch();
+    const navigate = useNavigate();
   
     const ravitailleurUpdate = useSelector((state) => state?.[updateRavitailleurStore]) || initialState;
-    const ravitailleurListData = useSelector((state) => state?.[getRavitailleursStore]) || {
-      ...initialState,
-      data: {},
-    };
-    
-    const ravitailleurToUpdate = ravitailleurListData?.data?.filter(
-      (ravitailleur) =>
-      ravitailleur?.username === window.location.href.split("/").pop()
-    )?.[0];
 
-    const [username, setusername] = useState(ravitailleurToUpdate?.username);
-    const [nom, setNom] = useState(ravitailleurToUpdate?.nom);
-    const [prenom, setPrenom] = useState(ravitailleurToUpdate?.prenom);
-    const [email, setEmail] = useState(ravitailleurToUpdate?.email);
-    const [telephone, setTelephone] = useState(ravitailleurToUpdate?.telephone);
+    const { ravitailleurId } = useParams();
+
+    const [username, setUsername] = useState("");
+    const [nom, setNom] = useState("");
+    const [prenom, setPrenom] = useState("");
+    const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState("");
+
+    useEffect(() => {
+      setNom(ravitailleurUpdate?.data?.nom);
+      setUsername(ravitailleurUpdate?.data?.username);
+      setPrenom(ravitailleurUpdate?.data?.prenom);
+      setEmail(ravitailleurUpdate?.data?.email);
+      setTelephone(ravitailleurUpdate?.data?.telephone);
+    }, [ravitailleurUpdate?.data]);
+
+    console.log(ravitailleurUpdate?.data?.nom);
+    console.log(ravitailleurUpdate?.data?.prenom);
   
     const handleSubmit = (e) => {
       e.preventDefault();
       dispatch(updateRavitailleur({
-        username: window.location.href.split("/").pop(),
+        username: ravitailleurUpdate?.data?.username,
         nom: nom,
         prenom: prenom,
         email: email,
         telephone: telephone
-      }))
+      }));
+
+      setTimeout(() => {
+        navigate(-1);
+      }, 500);
     };
+
+    useEffect(() => {
+      dispatch(getRavitailleur(ravitailleurId));
+    }, []);
 
     return (
       <div className="user">
 
-      {ravitailleurUpdate?.loading && <Loader />}
-      {ravitailleurUpdate?.success && <AlertPopup type="success" message="Admin updated" />}
-      {ravitailleurUpdate?.error && <AlertPopup type="error" message="a problem occured" />}
+      {ravitailleurUpdate?.data?.loading && <Loader />}
+      {ravitailleurUpdate?.data?.success && <AlertPopup type="success" message="Ravitailleur updated" />}
+      {ravitailleurUpdate?.data?.error && <AlertPopup type="error" message="a problem occured" />}
 
         <div>
           <h1 className="userTitle">Edit Ravitailleur</h1>
@@ -75,7 +88,7 @@ import { updateRavitailleur} from "./action";
                 alt=""
                 className="userShowImg"
               />
-              <div className="userShowTopTitle">
+              <div className="userShowTopTitle"> 
                 <span className="userShowUsername">{nom} {prenom}</span>
               </div>
             </div>

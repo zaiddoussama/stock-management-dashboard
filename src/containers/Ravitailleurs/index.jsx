@@ -61,7 +61,7 @@ export default function RavitailleurList() {
 			renderCell: params => {
 				return (
 					<>
-						<Link to={"/ravitailleur/" + params.row.username}>
+						<Link to={"/ravitailleur/" + params.row.idRavitailleur}>
 							<button className="userListEdit">Edit</button>
 						</Link>
 						<DeleteOutline
