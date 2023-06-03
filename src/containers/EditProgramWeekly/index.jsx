@@ -87,7 +87,7 @@ export default function EditProgramWeekly() {
     useEffect(() => {
         setStartDate(dayjs(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.dateDebutProgramme) || new Date());
         setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.description || []);
-        setRavitailleurProgram(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.idRavitailleur);
+        setRavitailleurProgram(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.username);
     }, [programWeeklyUpdateOutput?.currentProgramWeekly]);
 
     console.log(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
@@ -151,7 +151,7 @@ export default function EditProgramWeekly() {
                     <Select
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
-                        value={programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.username}
+                        value={ravitailleurProgram}
                         label="Ravitailleur"
                         displayEmpty
                         fullWidth
