@@ -49,10 +49,6 @@ export default function EditProgramWeekly() {
 
     const handleClientsChange = (event) => {
         const value = event.target.value;
-        if (value[value.length - 1] === "all") {
-            setClientsProgram(clientsProgram.length === clientsLengthList ? [] : programWeeklyUpdateOutput?.clients?.data);
-            return;
-        }
         setClientsProgram(value);
     };
 
@@ -88,7 +84,8 @@ export default function EditProgramWeekly() {
         setStartDate(dayjs(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.dateDebutProgramme) || new Date());
         setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.description || []);
         setRavitailleurProgram(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.username);
-    }, [programWeeklyUpdateOutput?.currentProgramWeekly]);
+        setClientsProgram(programWeeklyUpdateOutput?.clients?.data?.map(client => client.idClient));
+    }, [programWeeklyUpdateOutput?.clients?.data, programWeeklyUpdateOutput?.currentProgramWeekly]);
 
     console.log(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
 
