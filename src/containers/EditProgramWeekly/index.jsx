@@ -16,6 +16,7 @@ import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import { useDispatch, useSelector } from "react-redux";
 import { getAvailableClients, getAvailableRavitailleurs, getProgramWeekly, updateProgramWeekly } from "./action";
+import dayjs from "dayjs";
 
 const key = updateProgramWeeklyStore;
 
@@ -30,7 +31,8 @@ export default function EditProgramWeekly() {
         dispatch(getProgramWeekly(parseInt(window.location.href.split("/").at(-1))));
     }, []);
 
-    const [startDate, setStartDate] = useState(null);
+    const [startDate, setStartDate] = useState();
+
     const [clientsProgram, setClientsProgram] = useState([]);
     const [ravitailleurProgram, setRavitailleurProgram] = useState("");
     const [note, setNote] = useState("");
@@ -54,12 +56,17 @@ export default function EditProgramWeekly() {
         setClientsProgram(value);
     };
 
-    const onCreateButtonClick = (event) => {
+    const onUpdateButtonClick = (event) => {
         event.preventDefault();
             dispatch(
                 updateProgramWeekly({
+                    idProgramme: parseInt(window.location.href.split("/").at(-1)),
                     dateDebutProgramme: startDate,
                     description: note,
+                    idRavitailleur: ravitailleurProgram,
+                    clients: clientsProgram.map((id) => {
+                        return { idClient: id };
+                    }),
                 })
             );
     };
@@ -78,9 +85,9 @@ export default function EditProgramWeekly() {
     }, []);
 
     useEffect(() => {
-        // setStartDate(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.dateDebutProgramme || new Date());
+        setStartDate(dayjs(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.dateDebutProgramme) || new Date());
         setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.description || []);
-        setRavitailleurProgram(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
+        setRavitailleurProgram(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.idRavitailleur);
     }, [programWeeklyUpdateOutput?.currentProgramWeekly]);
 
     console.log(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
@@ -144,7 +151,7 @@ export default function EditProgramWeekly() {
                     <Select
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
-                        value={ravitailleurProgram}
+                        value={programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.username}
                         label="Ravitailleur"
                         displayEmpty
                         fullWidth
@@ -182,7 +189,7 @@ export default function EditProgramWeekly() {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    onClick={onCreateButtonClick}
+                    onClick={onUpdateButtonClick}
                 >
                     Update
                 </Button>

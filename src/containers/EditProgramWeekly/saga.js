@@ -8,7 +8,7 @@ export function* updateProgramWeeklyEmitter(action) {
   const requestURL = "v1/programme/update";
 
   try {
-    const response = yield call(instance.post, requestURL, action?.programWeekly);
+    const response = yield call(instance.put, requestURL, action?.programWeekly);
     yield put(updateProgramWeeklySuccess(response?.data));
   } catch (err) {
     yield put(updateProgramWeeklyError(err));
