@@ -7,14 +7,18 @@ import {
   getProductTypesError,
   getProductTypesSuccess
 } from './action';
-import { DELETE_PRODUCT_TYPE, GET_PRODUCT_TYPES, LOAD_TODO } from './constants';
+import { DELETE_PRODUCT_TYPE, GET_PRODUCT_TYPES } from './constants';
 
 
-export function* getProductTypesEmitter() {
+export function* getProductTypesEmitter(action) {
+  console.log(action);
+  console.log("HMMMMMMMMMMMMMMMMMMMMMMMMMMM");
   const requestURL = "v1/typeproduit/all";
 
+  console.log("IKHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN");
+
   try {
-    const response = yield call(instance, requestURL);
+    const response = yield call(instance.get, requestURL);
     yield put(getProductTypesSuccess(response?.data));
   } catch (err) {
     yield put(getProductTypesError(err));
@@ -33,6 +37,6 @@ export function* deleteProductTypeEmitter(action) {
 }
 
 export default function* productTypeHandler() {
-  yield takeLatest(GET_PRODUCT_TYPES, getProductTypesEmitter);
   yield takeLatest(DELETE_PRODUCT_TYPE, deleteProductTypeEmitter);
+  yield takeLatest(GET_PRODUCT_TYPES, getProductTypesEmitter);
 }

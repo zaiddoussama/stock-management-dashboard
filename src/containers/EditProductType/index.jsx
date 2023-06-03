@@ -36,8 +36,8 @@ const ProductTypeDetails = () => {
 
 	const productTypeUpdate = useSelector(state => state?.[updateProductTypeStore]) || initialState;
 
-	const [productType, setProductType] = useState(productTypeUpdate?.data?.libelleTypeProduit);
-	const [unit, setUnit] = useState(productTypeUpdate?.data?.unite);
+	const [productType, setProductType] = useState("");
+	const [unit, setUnit] = useState("");
 
 	useEffect(() => {
 		setProductType(productTypeUpdate?.data?.libelleTypeProduit);
@@ -77,17 +77,15 @@ const ProductTypeDetails = () => {
 					label="Product Type"
 					onInput={e => setProductType(e.target.value)}
 					variant="outlined"
-					value={productType}
-					margin="normal"
+					value={productType || ""}
 					fullWidth
 				/>
 				<Select
 					label="Unit"
 					onChange={e => setUnit(e.target.value)}
 					variant="outlined"
-					margin="normal"
 					fullWidth
-					value={unit}
+					value={unit || ""}
 					defaultValue={"KG"}>
 					{options.map(option => (
 						<MenuItem key={option.value} value={option.value}>

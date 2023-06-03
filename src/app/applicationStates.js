@@ -20,5 +20,9 @@ export const addRavitailleurStore = "addRavitailleurStore";
 export const updateUserStore = "updateUserStore";
 export const updateRavitailleurStore = "updateRavitailleurStore";
 export const addProgramWeeklyStore = "addProgramWeeklyStore";
-export const getProgramWeekliesStore ="getProgramWeekliesStore";
+export const getProgramWeekliesStore = "getProgramWeekliesStore";
 export const updateProgramWeeklyStore = "updateProgramWeeklyStore";
+export const getProductsStore = "getProductsStore";
+export const addProductStore = "addProductStore";
+export const updateProductStore = "updateProductStore";
+

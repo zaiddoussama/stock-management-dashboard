@@ -9,6 +9,7 @@ import {
 } from './constants';
 
 export function getProductTypes() {
+  console.log("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLL");
   return {
     type: GET_PRODUCT_TYPES,
   };
