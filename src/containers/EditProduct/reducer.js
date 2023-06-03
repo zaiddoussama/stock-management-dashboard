@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT, UPDATE_PRODUCT_ERROR, GET_PRODUCT, GET_PRODUCT_SUCCESS, GET_PRODUCT_ERROR } from './constants';
+import { UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT, UPDATE_PRODUCT_ERROR, GET_PRODUCT, GET_PRODUCT_SUCCESS, GET_PRODUCT_ERROR, EDIT_GET_PRODUCT_TYPES, EDIT_GET_PRODUCT_TYPES_SUCCESS, EDIT_GET_PRODUCT_TYPES_ERROR } from './constants';
 
 // The initial state of the App
 export const initialState = {
@@ -7,6 +7,12 @@ export const initialState = {
   success: false,
   error: null,
   data: {},
+  productTypes: {
+    loading: false,
+    success: false,
+    error: null,
+    data: [],
+  },
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -32,6 +38,27 @@ const reducer = (state = initialState, action) =>
         draft.success = false;
         draft.error = action.error;
         draft.data = {};
+        break;
+
+      case EDIT_GET_PRODUCT_TYPES:
+        draft.productTypes.loading = false;
+        draft.productTypes.success = false;
+        draft.productTypes.error = null;
+        draft.productTypes.data = [];
+        break;
+
+      case EDIT_GET_PRODUCT_TYPES_SUCCESS:
+        draft.productTypes.loading = false;
+        draft.productTypes.success = true;
+        draft.productTypes.error = null;
+        draft.productTypes.data = action.productTypes;
+        break;
+
+      case EDIT_GET_PRODUCT_TYPES_ERROR:
+        draft.productTypes.loading = false;
+        draft.productTypes.success = false;
+        draft.productTypes.error = action.error;
+        draft.productTypes.data = [];
         break;
 
       case UPDATE_PRODUCT:

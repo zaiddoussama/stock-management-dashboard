@@ -2,6 +2,9 @@ import {
   GET_PRODUCT,
   GET_PRODUCT_ERROR,
   GET_PRODUCT_SUCCESS,
+  EDIT_GET_PRODUCT_TYPES,
+  EDIT_GET_PRODUCT_TYPES_ERROR,
+  EDIT_GET_PRODUCT_TYPES_SUCCESS,
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_ERROR,
   UPDATE_PRODUCT_SUCCESS,
@@ -47,6 +50,26 @@ export function updateProductSuccess(product) {
 export function updateProductError(error) {
   return {
     type: UPDATE_PRODUCT_ERROR,
+    error,
+  };
+}
+
+export function getProductTypes() {
+  return {
+    type: EDIT_GET_PRODUCT_TYPES,
+  };
+}
+
+export function getProductTypesSuccess(productTypes) {
+  return {
+    type: EDIT_GET_PRODUCT_TYPES_SUCCESS,
+    productTypes,
+  };
+}
+
+export function getProductTypesError(error) {
+  return {
+    type: EDIT_GET_PRODUCT_TYPES_ERROR,
     error,
   };
 }

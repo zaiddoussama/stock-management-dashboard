@@ -4,8 +4,10 @@ import instance from "../../app/request";
 import {
   addProductError,
   addProductSuccess,
+  getProductTypesError,
+  getProductTypesSuccess,
 } from "./action";
-import { ADD_PRODUCT } from "./constants";
+import { ADD_GET_PRODUCT_TYPES, ADD_PRODUCT } from "./constants";
 
 export function* addProductEmitter(action) {
   const requestURL = "v1/produit/ajout";
@@ -37,6 +39,19 @@ export function* addProductEmitter(action) {
   }
 }
 
+export function* getProductTypesEmitter() {
+
+  const requestURL = "v1/typeproduit/all";
+
+  try {
+    const response = yield call(instance.get, requestURL);
+    yield put(getProductTypesSuccess(response?.data));
+  } catch (err) {
+    yield put(getProductTypesError(err));
+  }
+}
+
 export default function* addProducthandler() {
   yield takeLatest(ADD_PRODUCT, addProductEmitter);
+  yield takeLatest(ADD_GET_PRODUCT_TYPES, getProductTypesEmitter)
 }
