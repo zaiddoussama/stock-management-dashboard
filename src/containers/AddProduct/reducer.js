@@ -4,15 +4,23 @@ import {
   ADD_PRODUCT_SUCCESS,
   ADD_PRODUCT,
   ADD_PRODUCT_ERROR,
+  ADD_GET_PRODUCT_TYPES,
+  ADD_GET_PRODUCT_TYPES_SUCCESS,
+  ADD_GET_PRODUCT_TYPES_ERROR,
 } from "./constants";
 
 // The initial state of the App
 export const initialState = {
+  loading: false,
+  success: false,
+  error: null,
+  data: {},
+  productTypes: {
     loading: false,
     success: false,
     error: null,
-    data: {},
-  
+    data: [],
+  }
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -38,6 +46,27 @@ const reducer = (state = initialState, action) =>
         draft.success = false;
         draft.loading = false;
         draft.data = {};
+        break;
+
+      case ADD_GET_PRODUCT_TYPES:
+        draft.productTypes.error = null;
+        draft.productTypes.success = false;
+        draft.productTypes.loading = true;
+        draft.productTypes.data = [];
+        break;
+
+      case ADD_GET_PRODUCT_TYPES_SUCCESS:
+        draft.productTypes.error = null;
+        draft.productTypes.success = true;
+        draft.productTypes.loading = false;
+        draft.productTypes.data = action.productTypes;
+        break;
+
+      case ADD_GET_PRODUCT_TYPES_ERROR:
+        draft.productTypes.error = action.error;
+        draft.productTypes.success = false;
+        draft.productTypes.loading = false;
+        draft.productTypes.data = [];
         break;
     }
   });

@@ -1,9 +1,6 @@
 // import "./productDetails.css";
 
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
 import { updateProductStore, getProductTypesStore } from "../../app/applicationStates";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct, updateProduct } from "./action";
@@ -13,8 +10,8 @@ import reducer, { initialState } from "./reducer";
 import saga from "./saga";
 import Loader from "../../components/Loader";
 import AlertPopup from "../../components/Alert";
-import { useNavigate, useParams } from "react-router-dom";
-import { getProductTypes } from "../ProductTypes/action";
+import { useNavigate } from "react-router-dom";
+import { getProductTypes } from "./action";
 
 const key = updateProductStore;
 
@@ -24,33 +21,26 @@ const ProductUpdateContainer = () => {
 
 	const dispatch = useDispatch();
 
-	const { productId } = useParams();
+	const productId = parseInt(window.location.href.split("/")?.pop());
 
 	const navigate = useNavigate();
 
 	const productUpdate = useSelector(state => state?.[key]) || initialState;
-	const productTypes = useSelector(state => state?.[getProductTypesStore]);
+
+	const [nom, setNom] = useState("");
+	const [quantite, setQuantite] = useState(0);
+	const [idTypeProduit, setIdTypeProduit] = useState(0);
+	const [image, setImage] = useState(null);
+	const [pathImage, setPathImage] = useState("");
+	const [error, setError] = useState("");
 
 	useEffect(() => {
-		if (!productTypes) {
-			dispatch(getProductTypes());
-		}
-	}, [dispatch]);
-
-	// useEffect(() => {
-	// 	if (productId) {
-	// 		dispatch(getProduct(productId));
-	// 	}
-	// }, [productId, dispatch]);
-
-	const [nom, setNom] = useState(productUpdate?.data?.nom);
-	const [quantite, setQuantite] = useState(productUpdate?.data?.quantite);
-	const [idTypeProduit, setIdTypeProduit] = useState(
-		productUpdate?.data?.typeProduit?.idTypeProduit
-	);
-	const [image, setImage] = useState(null);
-	const [pathImage, setPathImage] = useState(productUpdate?.data?.pathImage);
-	const [error, setError] = useState("");
+		setNom(productUpdate?.data?.nom);
+		setQuantite(productUpdate?.data?.quantite);
+		setIdTypeProduit(productUpdate?.data?.typeProduit?.idTypeProduit);
+		setImage(productUpdate?.data?.image);
+		setPathImage(productUpdate?.data?.pathImage);
+	}, [productUpdate]);
 
 	const onFileChange = e => {
 		setImage(e.target?.files?.[0]);
@@ -79,11 +69,12 @@ const ProductUpdateContainer = () => {
 	};
 
 	useEffect(() => {
-		if (productId) {
-			dispatch(getProduct(productId));
-		}
-	}, [productId, dispatch]);
+		dispatch(getProductTypes());
+	}, []);
 
+	useEffect(() => {
+		dispatch(getProduct(productId));
+	}, []);
 
 	return (
 		<div className="newProduct">
@@ -94,9 +85,9 @@ const ProductUpdateContainer = () => {
 			<h1 className="addProductTitle">Edit Product </h1>
 
 			<form className="newClientForm">
-				{/* <div>
+				<div>
 					<img src={process.env.REACT_APP_BASE_URL + pathImage} alt=""></img>
-				</div> */}
+				</div>
 				<div className="newClientItem">
 					<label>Name</label>
 					<input type="text" value={nom} onInput={e => setNom(e.target.value)} />
@@ -112,10 +103,10 @@ const ProductUpdateContainer = () => {
 					<select
 						onChange={e => setIdTypeProduit(e.target.value)}
 						className="newClientSelect"
-						value={idTypeProduit || 0}
+						value={idTypeProduit}
 						name="active"
 						id="active">
-						{productTypes?.data.map(item => (
+						{productUpdate?.productTypes?.data?.map(item => (
 							<option key={item.idTypeProduit} value={item.idTypeProduit}>
 								{item?.libelleTypeProduit}
 							</option>

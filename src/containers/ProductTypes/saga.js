@@ -10,12 +10,9 @@ import {
 import { DELETE_PRODUCT_TYPE, GET_PRODUCT_TYPES } from './constants';
 
 
-export function* getProductTypesEmitter(action) {
-  console.log(action);
-  console.log("HMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-  const requestURL = "v1/typeproduit/all";
+export function* getProductTypesEmitter() {
 
-  console.log("IKHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN");
+  const requestURL = "v1/typeproduit/all";
 
   try {
     const response = yield call(instance.get, requestURL);
@@ -37,6 +34,6 @@ export function* deleteProductTypeEmitter(action) {
 }
 
 export default function* productTypeHandler() {
-  yield takeLatest(DELETE_PRODUCT_TYPE, deleteProductTypeEmitter);
   yield takeLatest(GET_PRODUCT_TYPES, getProductTypesEmitter);
+  yield takeLatest(DELETE_PRODUCT_TYPE, deleteProductTypeEmitter);
 }
