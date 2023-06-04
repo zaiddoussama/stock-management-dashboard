@@ -15,7 +15,7 @@ export function* addClientEmitter(action) {
   for (const property in action?.client) {
     if (property === "machines") {
       bodyFormData.append(
-        "machinesJson",
+        "machines",
         JSON.stringify(action?.client?.[property])
       );
     } else {

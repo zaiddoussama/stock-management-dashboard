@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) =>
         break;
 
       case ADD_MACHINE_SUCCESS:
-        draft.data = action.todo;
+        draft.data = action.machine;
         draft.loading = false;
         draft.success = true;
         draft.error = null;

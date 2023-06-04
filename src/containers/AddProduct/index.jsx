@@ -66,7 +66,7 @@ export function AddProductContainer() {
 		if (!error) {
 			setTimeout(() => {
 				navigate(-1);
-			}, 500);
+			}, 1000);
 		}
 	};
 

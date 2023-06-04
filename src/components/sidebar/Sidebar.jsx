@@ -13,6 +13,9 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import CoffeeMakerOutlinedIcon from "@mui/icons-material/CoffeeMakerOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import ProductionQuantityLimitsOutlinedIcon from "@mui/icons-material/ProductionQuantityLimitsOutlined";
 
 export default function Sidebar() {
 	return (
@@ -41,7 +44,7 @@ export default function Sidebar() {
 						</Link>
 						<Link to="/machines" className="link">
 							<li className="sidebarListItem">
-								<Storefront className="sidebarIcon" />
+								<CoffeeMakerOutlinedIcon className="sidebarIcon" />
 								Machines
 							</li>
 						</Link>
@@ -53,13 +56,13 @@ export default function Sidebar() {
 						</Link>
 						<Link to="/products" className="link">
 							<li className="sidebarListItem">
-								<Storefront className="sidebarIcon" />
+								<ProductionQuantityLimitsOutlinedIcon className="sidebarIcon" />
 								Products
 							</li>
 						</Link>
 						<Link to="/productType" className="link">
 							<li className="sidebarListItem">
-								<Storefront className="sidebarIcon" />
+								<CategoryOutlinedIcon className="sidebarIcon" />
 								Product Type
 							</li>
 						</Link>
