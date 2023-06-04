@@ -65,7 +65,7 @@ export default function EditProgramWeekly() {
                     dateDebutProgramme: startDate,
                     description: note,
                     idRavitailleur: ravitailleurProgram,
-                    clients: clientsProgram.map((id) => {
+                    clients: associatedClients.map((id) => {
                         return { idClient: id };
                     }),
                 })
@@ -156,7 +156,7 @@ export default function EditProgramWeekly() {
                         {programWeeklyUpdateOutput?.clients?.data?.map((client, index) => (
                             <MenuItem key={index} value={client?.idClient}>
                                 <ListItemIcon>
-                                    <Checkbox checked={clientsProgram && clientsProgram.indexOf(client.idClient) > -1} />
+                                    <Checkbox checked={associatedClients.includes(client.idClient)} />
                                 </ListItemIcon>
                                 <ListItemText primary={client?.nom} />
                             </MenuItem>
