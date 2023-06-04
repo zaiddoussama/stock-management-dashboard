@@ -35,13 +35,12 @@ export default function EditProgramWeekly() {
 
     const [clientsProgram, setClientsProgram] = useState([]);
     const [ravitailleurProgram, setRavitailleurProgram] = useState("");
+    const [ravitailleurUserName, setRavitailleurUserName] = useState("");
     const [note, setNote] = useState("");
 
     const dispatch = useDispatch();
 
     const classes = useStyles();
-
-    const clientsLengthList = programWeeklyUpdateOutput?.clients?.data?.length;
 
     const handleDateChange = (date) => {
         setStartDate(date);
@@ -49,10 +48,6 @@ export default function EditProgramWeekly() {
 
     const handleClientsChange = (event) => {
         const value = event.target.value;
-        if (value[value.length - 1] === "all") {
-            setClientsProgram(clientsProgram.length === clientsLengthList ? [] : programWeeklyUpdateOutput?.clients?.data);
-            return;
-        }
         setClientsProgram(value);
     };
 
@@ -87,8 +82,14 @@ export default function EditProgramWeekly() {
     useEffect(() => {
         setStartDate(dayjs(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.dateDebutProgramme) || new Date());
         setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.description || []);
-        setRavitailleurProgram(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.idRavitailleur);
-    }, [programWeeklyUpdateOutput?.currentProgramWeekly]);
+        setRavitailleurProgram(() => {
+            const username = programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur?.username;
+            const ravitailleur = programWeeklyUpdateOutput?.ravitailleurs?.data?.find(ravi => ravi.username === username);
+            return ravitailleur ? ravitailleur.idRavitailleur : "";
+        });
+        setRavitailleurUserName(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur?.username || "");
+        setClientsProgram(programWeeklyUpdateOutput?.clients?.data?.map(client => client.idClient));
+    }, [programWeeklyUpdateOutput?.clients?.data, programWeeklyUpdateOutput?.currentProgramWeekly, programWeeklyUpdateOutput?.ravitailleurs?.data]);
 
     console.log(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
 
@@ -146,32 +147,36 @@ export default function EditProgramWeekly() {
                 </FormControl>
             </div>
             <div className="new-program-select-ravitailleur-container">
-                <FormControl variant="outlined" sx={{ m: 1, minWidth: 180 }}>
-                    <InputLabel id="demo-simple-select-filled-label">Ravitailleiur</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        value={programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.username}
-                        label="Ravitailleur"
-                        displayEmpty
-                        fullWidth
-                        onChange={(e) => {
-                            setRavitailleurProgram(e.target.value);
-                        }}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {
-                            programWeeklyUpdateOutput?.ravitailleurs?.data?.map((ravi) => (
-                                <MenuItem
-                                    value={ravi?.username}>
-                                    {ravi?.username}
-                                </MenuItem>
-                            ))
-                        }
-                    </Select>
-                </FormControl>
+                         <FormControl variant="outlined" sx={{ m: 1, minWidth: 180 }}>
+  <InputLabel id="demo-simple-select-filled-label">Ravitailleur</InputLabel>
+  <Select
+    labelId="demo-simple-select-filled-label"
+    id="demo-simple-select-filled"
+    value={ravitailleurUserName}
+    label="Ravitailleur"
+    displayEmpty
+    fullWidth
+    onChange={(e) => {
+      const ravitailleur = programWeeklyUpdateOutput?.ravitailleurs?.data?.find(ravi => ravi.username === e.target.value);
+      const idRavitailleur = ravitailleur ? ravitailleur.idRavitailleur : "";
+        setRavitailleurProgram(idRavitailleur);
+        setRavitailleurUserName(e.target.value);
+    }}
+  >
+    <MenuItem value="">
+      <em>None</em>
+    </MenuItem>
+    {
+      programWeeklyUpdateOutput?.ravitailleurs?.data?.map((ravi) => (
+        <MenuItem
+          key={ravi.username}
+          value={ravi.username}>
+          {ravi.username}
+        </MenuItem>
+      ))
+    }
+  </Select>
+</FormControl>
             </div>
             <div className="new-program-note">
                 <TextField
