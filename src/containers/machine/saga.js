@@ -7,7 +7,7 @@ import { DELETE_MACHINE, GET_MACHINES } from "./constants";
 export function* getMachinesEmitter() {
   const requestURL = "v1/machine/all";
   try {
-    const response = yield call(instance, requestURL);
+    const response = yield call(instance.get, requestURL);
     yield put(getMachinesSuccess(response?.data));
   } catch (err) {
     yield put(getMachinesError(err));
@@ -15,7 +15,7 @@ export function* getMachinesEmitter() {
 }
 
 export function* deletetMachineEmitter(action) {
-  const requestURL = "v1/machine/delete/" + action?.id;
+  const requestURL = "v1/machine/delete?idMachine=" + action?.id;
   try {
     const response = yield call(instance.delete, requestURL);
     yield put(deleteMachineSuccess(response?.data));
