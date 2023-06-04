@@ -16,6 +16,7 @@ import { useInjectReducer } from "../../app/injectReducer";
 import { useInjectSaga } from "../../app/injectSaga";
 import { useDispatch, useSelector } from "react-redux";
 import { addProgramWeekly, getAvailableClients, getAvailableRavitailleurs } from "./action";
+import { useNavigate } from "react-router-dom";
 
 const key = addProgramWeeklyStore;
 
@@ -33,6 +34,7 @@ export default function NewProgramWeekly() {
     const [ravitailleurError, setRavitailleurError] = useState(true);
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const navigate = useNavigate();
 
     const programWeeklyAddOutput = useSelector((state) => state?.[key]) || initialState;
 
@@ -91,8 +93,9 @@ export default function NewProgramWeekly() {
         let timeoutId;
         if (showSuccessAlert) {
           timeoutId = setTimeout(() => {
-            setShowSuccessAlert(false);
-          }, 8000); // less than 10 seconds
+              setShowSuccessAlert(false);
+              navigate(-1);
+          }, 1000); // less than 10 seconds
         }
         return () => clearTimeout(timeoutId);
       }, [showSuccessAlert]);

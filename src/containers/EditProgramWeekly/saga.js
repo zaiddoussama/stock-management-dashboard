@@ -36,7 +36,7 @@ export function* getAvailableClientsEmitter() {
 }
 
 export function* getCurrentProgramWeeklyEmitter(action) {
-  const requestURL = "v1/programme/allByRavitailleur?idRavitailleur=" + action?.id;
+  const requestURL = "v1/programme/" + action?.id;
   try {
     const response = yield call(instance.get, requestURL);
     yield put(getProgramWeeklySuccess(response?.data));

@@ -75,7 +75,7 @@ export default function ProgramWeeklyList() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/editProgramWeekly/" + params.row.ravitailleur.idRavitailleur}>
+                        <Link to={"/editProgramWeekly/" + params.row.idProgrammeWeekly}>
                             <button className="programWeeklyListEdit">Edit</button>
                         </Link>
                         <DeleteOutline

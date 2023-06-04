@@ -17,6 +17,7 @@ import { useInjectSaga } from "../../app/injectSaga";
 import { useDispatch, useSelector } from "react-redux";
 import { getAvailableClients, getAvailableRavitailleurs, getProgramWeekly, updateProgramWeekly } from "./action";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const key = updateProgramWeeklyStore;
 
@@ -33,10 +34,14 @@ export default function EditProgramWeekly() {
 
     const [startDate, setStartDate] = useState();
 
-    const [clientsProgram, setClientsProgram] = useState([]);
+    const [clientsProgram, setClients] = useState([]);
+    const [associatedClients, setAssociatedClients] = useState([]);
     const [ravitailleurProgram, setRavitailleurProgram] = useState("");
     const [ravitailleurUserName, setRavitailleurUserName] = useState("");
     const [note, setNote] = useState("");
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const navigate = useNavigate();
+
 
     const dispatch = useDispatch();
 
@@ -48,7 +53,8 @@ export default function EditProgramWeekly() {
 
     const handleClientsChange = (event) => {
         const value = event.target.value;
-        setClientsProgram(value);
+        setClients(value);
+        setAssociatedClients(value);
     };
 
     const onUpdateButtonClick = (event) => {
@@ -63,7 +69,8 @@ export default function EditProgramWeekly() {
                         return { idClient: id };
                     }),
                 })
-            );
+        );
+        setShowSuccessAlert(true);
     };
 
     useEffect(() => {
@@ -80,18 +87,30 @@ export default function EditProgramWeekly() {
     }, []);
 
     useEffect(() => {
-        setStartDate(dayjs(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.dateDebutProgramme) || new Date());
-        setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.description || []);
+        setStartDate(dayjs(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.dateDebutProgramme) || new Date());
+        setNote(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.description || "");
         setRavitailleurProgram(() => {
-            const username = programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur?.username;
+            const username = programWeeklyUpdateOutput?.currentProgramWeekly?.data?.ravitailleur?.username;
             const ravitailleur = programWeeklyUpdateOutput?.ravitailleurs?.data?.find(ravi => ravi.username === username);
             return ravitailleur ? ravitailleur.idRavitailleur : "";
         });
-        setRavitailleurUserName(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur?.username || "");
-        setClientsProgram(programWeeklyUpdateOutput?.clients?.data?.map(client => client.idClient));
+        setRavitailleurUserName(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.ravitailleur?.username || "");
+        setClients(programWeeklyUpdateOutput?.clients?.data?.map(client => client.idClient));
+        setAssociatedClients(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.clients?.map(client => client.idClient) || []);
     }, [programWeeklyUpdateOutput?.clients?.data, programWeeklyUpdateOutput?.currentProgramWeekly, programWeeklyUpdateOutput?.ravitailleurs?.data]);
 
     console.log(programWeeklyUpdateOutput?.currentProgramWeekly?.data?.[0]?.ravitailleur.nom);
+
+        useEffect(() => {
+        let timeoutId;
+        if (showSuccessAlert) {
+          timeoutId = setTimeout(() => {
+              setShowSuccessAlert(false);
+              navigate(-1);
+          }, 1000); // less than 10 seconds
+        }
+        return () => clearTimeout(timeoutId);
+      }, [showSuccessAlert]);
 
     return (
 
@@ -104,7 +123,7 @@ export default function EditProgramWeekly() {
                     <AlertPopup type="error" message="a problem occured" />
                 )}
 
-            {programWeeklyUpdateOutput?.success && (
+            {showSuccessAlert && programWeeklyUpdateOutput?.success && (
                 <Stack sx={{ width: "100%" }} spacing={2}>
                     <Alert severity="success">program weekly updated successfully !</Alert>
                 </Stack>
@@ -129,15 +148,15 @@ export default function EditProgramWeekly() {
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
                         multiple
-                        value={clientsProgram}
+                        value={associatedClients}
                         onChange={handleClientsChange}
-                        renderValue={(clientsProgram) => clientsProgram.join(", ")}
+                        renderValue={(associatedClients) => associatedClients.join(", ")}
                     >
 
                         {programWeeklyUpdateOutput?.clients?.data?.map((client, index) => (
                             <MenuItem key={index} value={client?.idClient}>
                                 <ListItemIcon>
-                                    <Checkbox checked={clientsProgram.indexOf(client.idClient) > -1} />
+                                    <Checkbox checked={clientsProgram && clientsProgram.indexOf(client.idClient) > -1} />
                                 </ListItemIcon>
                                 <ListItemText primary={client?.nom} />
                             </MenuItem>
