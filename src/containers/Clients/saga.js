@@ -7,7 +7,7 @@ import { DELETE_CLIENT, GET_CLIENTS } from "./constants";
 export function* getClientsEmitter() {
   const requestURL = "v1/client/all";
   try {
-    const response = yield call(instance, requestURL);
+    const response = yield call(instance.get, requestURL);
     yield put(getClientsSuccess(response?.data));
   } catch (err) {
     yield put(getClientsError(err));
@@ -15,7 +15,7 @@ export function* getClientsEmitter() {
 }
 
 export function* deletetClientEmitter(action) {
-  const requestURL = "v1/client/delete/" + action?.id;
+  const requestURL = "v1/client/delete?idClient=" + action?.id;
   try {
     const response = yield call(instance.post, requestURL);
     yield put(deleteClientSuccess(response?.data));

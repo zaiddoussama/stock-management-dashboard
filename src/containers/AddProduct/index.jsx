@@ -27,9 +27,7 @@ export function AddProductContainer() {
 
 	const [nom, setNom] = useState("");
 	const [quantite, setQuantite] = useState(0);
-	const [idTypeProduit, setIdTypeProduit] = useState(
-		parseInt(productAddOutput?.productTypes?.data?.[0]?.idTypeProduit)
-	);
+	const [idTypeProduit, setIdTypeProduit] = useState(1);
 	const [image, setImage] = useState(null);
 	const [error, setError] = useState(null);
 
@@ -88,10 +86,10 @@ export function AddProductContainer() {
 					<input type="text" value={nom} onChange={e => setNom(e.target.value)} />
 				</div>
 
-				<div className="newClientItem">
+				{/* <div className="newClientItem">
 					<label>Quantity</label>
 					<input type="text" value={quantite} onChange={e => setQuantite(e.target.value)} />
-				</div>
+				</div> */}
 
 				<div className="newClientItem">
 					<label>Product Type</label>

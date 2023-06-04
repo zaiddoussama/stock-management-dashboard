@@ -86,17 +86,17 @@ const ProductUpdateContainer = () => {
 
 			<form className="newClientForm">
 				<div>
-					<img src={process.env.REACT_APP_BASE_URL + pathImage} alt=""></img>
+					<img src={process.env.REACT_APP_BASE_URL + pathImage} alt="Hello"></img>
 				</div>
 				<div className="newClientItem">
 					<label>Name</label>
 					<input type="text" value={nom} onInput={e => setNom(e.target.value)} />
 				</div>
 
-				<div className="newClientItem">
+				{/* <div className="newClientItem">
 					<label>Quantity</label>
 					<input type="text" value={quantite} onInput={e => setQuantite(e.target.value)} />
-				</div>
+				</div> */}
 
 				<div className="newClientItem">
 					<label>Product Type</label>

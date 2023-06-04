@@ -14,10 +14,16 @@ export function* addClientEmitter(action) {
   var bodyFormData = new FormData();
   for (const property in action?.client) {
     if (property === "machines") {
+      let machines = [];
+      for (const item of action?.client?.[property]) {
+        machines.push({ idMachine: item })
+      }
       bodyFormData.append(
         "machines",
-        JSON.stringify(action?.client?.[property])
+        JSON.stringify(machines)
       );
+    } else if (property === "image" && !action?.client?.[property]) {
+      continue;
     } else {
       bodyFormData.append(property, action?.client?.[property]);
     }

@@ -16,10 +16,17 @@ export function* updateMachineEmitter(action) {
   var bodyFormData = new FormData();
   for (const property in action?.client) {
     if (property === "machines") {
+      let machines = [];
+      for (const item of action?.client?.[property]) {
+        machines.push({ idMachine: item })
+      }
       bodyFormData.append(
-        "machinesJson",
-        JSON.stringify(action?.client?.[property])
+        "machines",
+        JSON.stringify(machines)
       );
+    }
+    else if (property === "image" && !action?.client?.[property]) {
+      continue;
     } else {
       bodyFormData.append(property, action?.client?.[property]);
     }
@@ -41,7 +48,7 @@ export function* updateMachineEmitter(action) {
 }
 
 export function* getAvailableMachinesEmitter() {
-  const requestURL = "v1/machine/all";
+  const requestURL = "v1/machine/allWithNoClient";
   try {
     const response = yield call(instance.get, requestURL);
     yield put(getAvailableMachinesSuccess(response?.data));

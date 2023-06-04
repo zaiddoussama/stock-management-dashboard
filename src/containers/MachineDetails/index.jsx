@@ -82,7 +82,8 @@ export default function MachineDetailsContainer() {
 									className="machineUpdateSelect"
 									name="machineType"
 									id="machineType"
-									disabled>
+									// disabled
+									>
 									{machineTypes.map((type, index) => (
 										<option key={index} value={type?.code}>
 											{type?.label}

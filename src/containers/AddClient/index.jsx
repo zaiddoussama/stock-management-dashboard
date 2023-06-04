@@ -12,104 +12,142 @@ import saga from "./saga";
 import { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
 import AlertPopup from "../../components/Alert";
+import { Checkbox, ListItemIcon, ListItemText, MenuItem, Select } from "@mui/material";
+// import { CheckBox } from "@mui/icons-material";
 
 const key = addClientStore;
 
 export function AddClientContainer() {
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
+	useInjectReducer({ key, reducer });
+	useInjectSaga({ key, saga });
 
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [clientMachines, setClientMachines] = useState([]);
-  const [image, setImage] = useState(null);
+	const [name, setName] = useState("");
+	const [address, setAddress] = useState("");
+	const [clientMachines, setClientMachines] = useState([]);
+	const [selectedMachines, setSelectedMachines] = useState([]);
+	const [image, setImage] = useState(null);
+	const [error, setError] = useState(null);
 
-  const clientAddOutput = useSelector((state) => state?.[key]) || initialState;
+	const clientAddOutput = useSelector(state => state?.[key]) || initialState;
 
-  const dispatch = useDispatch();
+	console.log(clientAddOutput);
+	console.log("*************************************");
 
-  const handleSelectChange = (e) => {
-    var options = e.target.options;
-    var value = [];
-    for (var i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setClientMachines(value);
-  };
+	const dispatch = useDispatch();
 
-  const onFileChange = (e) => {
-    setImage(e.target.files[0]);
-  };
+	useEffect(() => {
+		setClientMachines(clientAddOutput?.machines?.data);
+	}, [clientAddOutput]);
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    dispatch(
-      addClient({
-        nom: name,
-        adress: address,
-        image: image,
-        machines: clientMachines.map((id) => {
-          return { idMachine: id };
-        }),
-      })
-    );
-  };
+	const onFileChange = e => {
+		setImage(e.target.files[0]);
+	};
 
-  useEffect(() => {
-    dispatch(getAvailableMachines());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+	const handleClick = event => {
+		event.preventDefault();
 
-  return (
-    <div className="newClient">
-      {(clientAddOutput?.machines?.loading ||
-        clientAddOutput?.client?.loading) && <Loader />}
-      {clientAddOutput?.client?.success && (
-        <AlertPopup type="success" message="client added" />
-      )}
-      {(clientAddOutput?.machines?.error || clientAddOutput?.client?.error) && (
-        <AlertPopup type="error" message="a problem occured" />
-      )}
+		if (!name?.trim()) {
+			setError("Client name is required");
 
-      <h1 className="newClientTitle">New Client</h1>
-      <form className="newClientForm">
-        <div className="newClientItem">
-          <label>Client name</label>
-          <input type="text" onChange={(e) => setName(e.target.value)} />
-        </div>
+			setTimeout(() => {
+				setError(null);
+			}, 3000);
 
-        <div className="newClientItem">
-          <label>Client address</label>
-          <input type="text" onChange={(e) => setAddress(e.target.value)} />
-        </div>
+			return;
+		}
 
-        <div className="newClientItem">
-          <label>Client machines</label>
-          <select
-            onChange={handleSelectChange}
-            className="newClientSelect"
-            name="active"
-            id="active"
-            multiple
-          >
-            {clientAddOutput?.machines?.data.map((type, index) => (
-              <option key={index} value={type?.idMachine}>
-                {type?.numero}
-              </option>
-            ))}
-          </select>
-        </div>
+		if (!selectedMachines || selectedMachines?.length === 0) {
+			setError("Please select some machine, or try to add new Machines into your system");
 
-        <div className="newClientItem">
-          <input type="file" onChange={onFileChange} />
-        </div>
+			setTimeout(() => {
+				setError(null);
+			}, 3000);
 
-        <button className="newClientButton" onClick={handleClick}>
-          Create
-        </button>
-      </form>
-    </div>
-  );
+			return;
+		}
+
+		dispatch(
+			addClient({
+				nom: name,
+				adress: address,
+				image: image,
+				machines: selectedMachines,
+			})
+		);
+	};
+
+	const handleSelectChange = event => {
+		const value = event.target.value;
+
+		setSelectedMachines(value);
+	};
+
+	useEffect(() => {
+		dispatch(getAvailableMachines());
+	}, []);
+
+	return (
+		<div className="newClient">
+			{(clientAddOutput?.machines?.loading || clientAddOutput?.client?.loading) && <Loader />}
+			{clientAddOutput?.client?.success && <AlertPopup type="success" message="client added" />}
+			{(clientAddOutput?.machines?.error || clientAddOutput?.client?.error) && (
+				<AlertPopup type="error" message="a problem occured" />
+			)}
+			{error && <AlertPopup type="error" message={error} />}
+
+			<h1 className="newClientTitle">New Client</h1>
+			<form className="newClientForm">
+				<div className="newClientItem">
+					<label>Client name</label>
+					<input type="text" onChange={e => setName(e.target.value)} />
+				</div>
+
+				<div className="newClientItem">
+					<label>Client address</label>
+					<input type="text" onChange={e => setAddress(e.target.value)} />
+				</div>
+
+				<div className="newClientItem">
+					<label>Client machines</label>
+					<Select
+						labelId="demo-simple-select-filled-label"
+						id="demo-simple-select-filled"
+						value={selectedMachines}
+						label="Machines"
+						multiple
+						variant="outlined"
+						onChange={handleSelectChange}
+						renderValue={selectedMachines => selectedMachines?.join(", ")}>
+						<MenuItem value="">
+							<em>None</em>
+						</MenuItem>
+						{/* {updateClientOutput?.machines?.data.map((machine, index) => (
+										<MenuItem key={index} value={machine?.idMachine}>
+											<ListItemIcon>
+												<Checkbox checked={selectedMachines?.indexOf(machine.idMachine) > -1} />
+											</ListItemIcon>
+											<ListItemText primary={machine?.numero} />
+										</MenuItem>
+									))} */}
+						{clientMachines?.map((machine, index) => (
+							<MenuItem key={index} value={machine?.idMachine}>
+								<ListItemIcon>
+									<Checkbox checked={selectedMachines?.indexOf(machine.idMachine) > -1} />
+								</ListItemIcon>
+								<ListItemText primary={machine?.numero} />
+							</MenuItem>
+						))}
+					</Select>
+				</div>
+
+				<div className="newClientItem">
+					<input type="file" onChange={onFileChange} />
+				</div>
+
+				<button className="newClientButton" onClick={e => handleClick(e)}>
+					Create
+				</button>
+			</form>
+		</div>
+	);
 }

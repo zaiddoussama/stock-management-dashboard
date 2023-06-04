@@ -34,17 +34,16 @@ export default function ClientListContainer() {
   const handleDelete = (id) => {
     dispatch(deleteClient(id));
     // eslint-disable-next-line eqeqeq
-    dispatch(
-      filterClients(
-        // eslint-disable-next-line eqeqeq
-        clientListData?.clients?.data.filter((client) => client?.idClient != id)
-      )
-    );
+    // dispatch(
+    //   filterClients(
+    //     // eslint-disable-next-line eqeqeq
+    //     clientListData?.clients?.data.filter((client) => client?.idClient != id)
+    //   )
+    // );
   };
 
   const columns = [
     { field: "idClient", headerName: "ID", width: 90 },
-
     { field: "nom", headerName: "CLIENT NAME", width: 200 },
     {
       field: "adress",
@@ -73,7 +72,6 @@ export default function ClientListContainer() {
 
   useEffect(() => {
     dispatch(getClients());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

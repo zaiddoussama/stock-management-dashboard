@@ -21,7 +21,7 @@
 }
 
 .clientContainer {
-  height: 300px;
+  height: auto;
   display: flex;
   margin-top: 20px;
 }

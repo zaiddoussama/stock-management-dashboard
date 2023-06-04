@@ -23,7 +23,7 @@ export default function AlertPopup({ type, message }) {
 	if (open) {
 		setTimeout(() => {
 			setOpen(false);
-		}, 2000);
+		}, 3000);
 	}
 
 	return (
